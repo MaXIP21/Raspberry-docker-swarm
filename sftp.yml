@@ -1,0 +1,18 @@
+version: "3.9"
+services:
+  sftp_server:
+    container_name: sftp
+    image: casperklein/sftp:latest
+
+    environment:
+      password: ${password}
+    ports:
+      - ${external_port}:22
+    volumes:
+      - ${home_folder}:/mnt
+    deploy:
+      mode: replicated
+      replicas: 1
+      placement:
+        constraints:
+          - node.role == ${node_role}
