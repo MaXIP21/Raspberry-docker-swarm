@@ -4,6 +4,9 @@ services:
   mariadb:
     image: arm64v8/mariadb:latest
     network_mode: "host" 
+    security_opt:
+      - seccomp:unconfined
+      - apparmor:unconfined
     ports:
       - "3336:3336/tcp"
     environment:

@@ -2,6 +2,9 @@ version: "3"
 services:
   heimdall:
     image: linuxserver/heimdall:latest
+    security_opt:
+      - seccomp:unconfined
+      - apparmor:unconfined
     environment:
       - TZ=Europe/London
     volumes:
