@@ -1,0 +1,29 @@
+version: "3"
+
+services:
+  pihole:
+    image: pihole/pihole:v5.8
+    network_mode: "host" 
+    ports:
+      - "53:53/tcp"
+      - "53:53/udp"
+      - "80:80/tcp"
+    environment:
+      TZ: 'Europe/Budapest'
+      WEBPASSWORD: ${web_password}
+    volumes:
+      - 'pihole_pihole-etc:/etc/pihole'
+      - 'pihole_dnsmasq:/etc/dnsmasq.d'
+    deploy:
+      mode: replicated
+      replicas: 1
+      placement:
+        constraints:
+          - node.hostname == retropie
+    cap_add:
+      - NET_ADMIN
+    restart: unless-stopped
+    
+volumes:
+  pihole_pihole-etc:
+  pihole_dnsmasq:
