@@ -16,7 +16,7 @@ services:
       options:
         tag: "{{.DaemonName}}(image={{.ImageName}};name={{.Name}};id={{.ID}})"
     networks:
-      - backend
+      - ingress
     restart: on-failure
     volumes:
      - mariadb_var:/var/lib/mysql
