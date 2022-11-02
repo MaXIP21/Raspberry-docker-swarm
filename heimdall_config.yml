@@ -1,4 +1,4 @@
-version: "2.1"
+version: "3"
 services:
   heimdall:
     image: lscr.io/linuxserver/heimdall:latest
@@ -9,8 +9,14 @@ services:
       - TZ=Europe/London
     volumes:
       - heimdall:/config
+    deploy:
+      mode: replicated
+      replicas: 1
+      placement:
+        constraints:
+          - node.hostname == ids
     ports:
-      - 80:80
+      - 8088:80
       - 443:443
     restart: unless-stopped
 volumes:
