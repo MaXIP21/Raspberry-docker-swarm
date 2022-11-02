@@ -1,0 +1,25 @@
+version: "3"
+
+services:
+  mariadb:
+    image: arm64v8/mariadb:latest
+    network_mode: "host" 
+    ports:
+      - "3336:3336/tcp"
+    environment:
+      MYSQL_ROOT_PASSWORD: ${mysql_root_password}
+      MYSQL_DATABASE: ${mysql_db_name}
+      MYSQL_USER: ${mysql_suer}
+      MYSQL_PASSWORD: ${mysql_password}
+    logging:
+      driver: syslog
+      options:
+        tag: "{{.DaemonName}}(image={{.ImageName}};name={{.Name}};id={{.ID}})"
+    networks:
+      - backend
+    restart: on-failure
+    volumes:
+     - mariadb_var:/var/lib/mysql
+    
+volumes:
+  mariadb_var:
