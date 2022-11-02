@@ -9,7 +9,7 @@ services:
     ports:
       - ${external_port}:22
     volumes:
-      - ${home_folder}:/mnt
+      - /disk/home/upload:/mnt
     deploy:
       mode: replicated
       replicas: 1
