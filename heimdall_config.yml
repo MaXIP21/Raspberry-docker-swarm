@@ -1,8 +1,7 @@
 version: "3"
 services:
   heimdall:
-    image: linuxserver/heimdall:2.4.13
-    container_name: heimdall
+    image: linuxserver/heimdall:latest
     environment:
       - PUID=1000
       - PGID=1000
