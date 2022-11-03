@@ -17,5 +17,6 @@ services:
     volumes:
         - home-assistant:/config
     restart: unless-stopped
+
 volumes:
-  home-assistant
+  home-assistant:
