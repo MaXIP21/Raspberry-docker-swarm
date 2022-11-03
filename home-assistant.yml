@@ -1,13 +1,21 @@
-version: '2.1'
+version: '3.5'
 services:
-    homeassistant:
-        image: lscr.io/linuxserver/homeassistant
-        container_name: homeassistant
-        network_mode: host
-        environment:
-            - PUID=1000
-            - PGID=1000
-            - TZ=Europe/Berlin
-        volumes:
-            - /home/pi/docker/homeAssistant/data:/config
-        restart: unless-stopped
+  homeassistant:
+    image: lscr.io/linuxserver/homeassistant
+    container_name: homeassistant
+    network_mode: host
+    environment:
+        - PUID=1000
+        - PGID=1000
+        - TZ=Europe/Berlin
+    deploy:
+      mode: replicated
+      replicas: 1
+      placement:
+        constraints:
+          - node.hostname == raspberry
+    volumes:
+        - home-assistant:/config
+    restart: unless-stopped
+volumes:
+  home-assistant
