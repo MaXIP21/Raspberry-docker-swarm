@@ -39,3 +39,4 @@ networks:
     external:
       name: swarm-macvlan
     ipam:
+      driver: default
