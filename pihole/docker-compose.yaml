@@ -26,7 +26,7 @@ services:
       - NET_ADMIN
     restart: unless-stopped
     networks:
-      macvlan1:
+      swarm-macvlan:
         ipv4_address: 192.168.1.241
     
 volumes:
@@ -34,5 +34,9 @@ volumes:
   pihole_dnsmasq:
 
 networks:
-  macvlan1:
+  swarm-macvlan:
     external: true
+    ipam:
+      config:
+      - subnet: 192.168.1.0/24
+        gateway: 192.168.1.1
