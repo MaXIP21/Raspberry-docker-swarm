@@ -35,4 +35,7 @@ volumes:
 
 networks:
   swarm_vip-241:
-    external: true
+    external:
+      name: swarm_vip-241
+    ipam:
+      driver: default
