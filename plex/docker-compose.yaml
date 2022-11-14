@@ -2,6 +2,7 @@ version: '3'
 services:
   ubuntu:
     image: lscr.io/linuxserver/plex:latest
+    mac_address: b7-48-d5-a6-d1-a2
     container_name: plex-ubuntu
     restart: unless-stopped
     privileged: true
@@ -9,23 +10,28 @@ services:
       - PUID=1000
       - PGID=1000
       - VERSION=docker
+    cap_add:
+      - NET_ADMIN
     deploy:
       mode: replicated
       replicas: 1
       placement:
         constraints:
           - node.hostname == portainer-pi3
+    networks:
+      swarm-macvlan: 
+        ipv4_address: 192.168.1.242
     volumes:
       - /docker/plex/config:/config
       - /docker/plex/tv:/mnt/tv
       - /docker/plex/movies:/mnt/movies
-    cap_add:
-      - NET_ADMIN
-    restart: unless-stopped
-    networks:
-      swarm-macvlan:
-        ipv4_address: 192.168.1.241
 
 networks:
   swarm-macvlan:
-    external: true
+    driver: macvlan
+    driver_opts:
+      parent: eth0
+    ipam:
+      config:
+      - subnet: 192.168.1.0/24
+        gateway: 192.168.1.1
