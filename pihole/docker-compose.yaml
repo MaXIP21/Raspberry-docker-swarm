@@ -27,16 +27,11 @@ services:
     restart: unless-stopped
     mac_address: b7-48-d5-a6-d1-01
     networks:
-      swarm-macvlan:
-        ipv4_address: 192.168.1.241
+      swarm_vip-241:
     
 volumes:
   pihole_pihole-etc:
   pihole_dnsmasq:
 
 networks:
-  swarm-macvlan:
-    external:
-      name: swarm-macvlan
-    ipam:
-      driver: default
+  swarm_vip-241:
