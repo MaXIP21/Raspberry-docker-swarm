@@ -23,11 +23,11 @@ services:
       - NET_ADMIN
     restart: unless-stopped
     networks:
-      swarm-macvlan:
+      macvlan1:
         ipv4_address: 192.168.1.241
 
 networks:
-  swarm-macvlan:
+  macvlan1:
     driver: macvlan
     driver_opts:
       parent: eth0
