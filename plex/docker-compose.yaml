@@ -1,9 +1,7 @@
----  
 version: '3'
 services:
   ubuntu:
     image: lscr.io/linuxserver/plex:latest
-    mac_address: b7-48-d5-a6-d1-a1
     container_name: plex-ubuntu
     restart: unless-stopped
     privileged: true
