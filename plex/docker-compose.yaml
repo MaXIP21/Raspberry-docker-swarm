@@ -23,15 +23,16 @@ services:
       - NET_ADMIN
     restart: unless-stopped
     networks:
-      swarm-macvlan:
-        ipv4_address: 192.168.1.241
+      vip-242:
+        ipv4_address: 192.168.1.242
 
 networks:
-  swarm-macvlan:
+  vip-242:
     driver: macvlan
     driver_opts:
       parent: eth0
     ipam:
       config:
       - subnet: 192.168.1.0/24
+        ip-range: 192.168.1.242/32
         gateway: 192.168.1.1
