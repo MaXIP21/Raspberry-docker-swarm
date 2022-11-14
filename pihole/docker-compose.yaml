@@ -38,3 +38,4 @@ networks:
   swarm-macvlan:
     external:
       name: swarm-macvlan
+    ipam:
