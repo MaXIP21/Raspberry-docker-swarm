@@ -1,0 +1,33 @@
+version: "3"
+
+services:
+  transmission:
+    image: lscr.io/linuxserver/transmission:latest
+    mac_address: b7-48-d5-a6-d1-a1
+    #network_mode: "host" 
+    expose:
+      - "9091"
+    ports:
+      - "9091:9091/tcp"
+    deploy:
+      mode: replicated
+      replicas: 1
+      placement:
+        constraints:
+          - node.hostname == portainer-pi3
+    restart: unless-stopped
+    volumes:
+      - /docker/transmission:/download
+      - /docker/plex/movies:/movies
+    cap_add:
+      - NET_ADMIN
+    networks:
+      swarm-macvlan: 
+        ipv4_address: 192.168.1.243
+
+networks:
+  swarm-macvlan:
+    external:
+      name: swarm-macvlan
+    ipam:
+      driver: default

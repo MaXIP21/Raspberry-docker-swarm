@@ -1,0 +1,21 @@
+---  
+version: '3'
+services:
+  ubuntu:
+    image: ubuntu:local
+    mac_address: b7-48-d5-a6-d1-99
+    container_name: ubuntu-local
+    restart: always
+    privileged: true
+    cap_add:
+      - NET_ADMIN
+    networks:
+      swarm-macvlan: 
+        ipv4_address: 192.168.1.224
+
+networks:
+  swarm-macvlan:
+    external:
+      name: swarm-macvlan
+    ipam:
+      driver: default

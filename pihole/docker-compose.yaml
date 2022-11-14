@@ -3,7 +3,6 @@ version: "3"
 services:
   pihole:
     image: pihole/pihole:v5.8
-    network_mode: "host" 
     ports:
       - "53:53/tcp"
       - "53:53/udp"
@@ -23,7 +22,19 @@ services:
     cap_add:
       - NET_ADMIN
     restart: unless-stopped
+    networks:
+      default:
+        outside:
+          ipv4_address: 192.168.1.241
     
 volumes:
   pihole_pihole-etc:
   pihole_dnsmasq:
+
+networks:
+  outside:
+    driver: bridge
+    ipam:
+      driver: default
+      config:
+      - subnet: 192.168.1.0/24 
