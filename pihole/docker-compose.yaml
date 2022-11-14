@@ -7,6 +7,9 @@ services:
       - "53:53/tcp"
       - "53:53/udp"
       - "8080:80/tcp"
+    expose:
+      - "80"
+      - "53"
     environment:
       TZ: 'Europe/Budapest'
       WEBPASSWORD: ${web_password}
