@@ -23,18 +23,11 @@ services:
       - NET_ADMIN
     restart: unless-stopped
     networks:
-      default:
-        outside:
-          ipv4_address: 192.168.1.241
+      swarm_ipvlan:
     
 volumes:
   pihole_pihole-etc:
   pihole_dnsmasq:
 
 networks:
-  outside:
-    driver: bridge
-    ipam:
-      driver: default
-      config:
-      - subnet: 192.168.1.0/24 
+  swarm_ipvlan:
