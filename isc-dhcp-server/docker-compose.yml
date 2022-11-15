@@ -10,6 +10,6 @@ services:
       - PGID=0
     privileged: true
     volumes:
-      - '${admin_user}:/etc/dhcp/dhcpd.conf'
+      - '/docker/dhcp/dhcpd.conf:/etc/dhcp/dhcpd.conf'
     ports:
       - "67:67/udp"
