@@ -28,4 +28,4 @@ services:
       - /docker/plex/movies:/movies
       - transmission-config:/config
 volumes:
-  - transmission-config:
+  transmission-config:
