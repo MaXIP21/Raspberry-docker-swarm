@@ -3,7 +3,6 @@ version: "3"
 services:
   transmission:
     image: lscr.io/linuxserver/transmission:latest
-    mac_address: b7-48-d5-a6-d1-a1
     network_mode: "host" 
     environment:
       - PUID=1000
