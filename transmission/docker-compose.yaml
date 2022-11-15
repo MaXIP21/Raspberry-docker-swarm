@@ -26,3 +26,6 @@ services:
     volumes:
       - /docker/transmission:/download
       - /docker/plex/movies:/movies
+      - transmission-config:/config
+volumes:
+  - transmission-config:
