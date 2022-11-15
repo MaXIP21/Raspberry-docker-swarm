@@ -5,8 +5,6 @@ services:
     image: lscr.io/linuxserver/transmission:latest
     mac_address: b7-48-d5-a6-d1-a1
     network_mode: "host" 
-    expose:
-      - "9091"
     ports:
       - "9091:9091/tcp"
     deploy:
