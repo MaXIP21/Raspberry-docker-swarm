@@ -14,5 +14,4 @@ services:
       - '/docker/dhcp/dhcpd.hosts:/etc/dhcp/dhcpd.hosts'
     ports:
       - '67:67'
-    command: ["/usr/sbin/init"]
 
