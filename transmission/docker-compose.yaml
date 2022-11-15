@@ -28,8 +28,8 @@ services:
       - transmission-config:/config
     secrets:
       - transmission-password
-  secrets:
-    transmission-password:
-      external: true
+secrets:
+  transmission-password:
+    external: true
 volumes:
   transmission-config:
