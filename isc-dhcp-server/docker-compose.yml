@@ -2,7 +2,7 @@ version: '3'
 services:
   isc-dhcp-server:
     image: isc-dhcp-server:latest
-    container_name: ubuntu
+    container_name: isc-dhcp
     restart: always
     network_mode: "host"
     environment:
