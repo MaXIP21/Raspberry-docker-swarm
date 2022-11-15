@@ -10,7 +10,7 @@ services:
       - TZ=Europe/Budapest
       - TRANSMISSION_WEB_HOME=/transmissionic/
       - USER=${admin_user} 
-      - PASS=/run/secrets/transmission-password
+      - FILE__PASSWORD=/run/secrets/transmission-password
     ports:
       - "9091:9091/tcp"
       - "51413:51413"
