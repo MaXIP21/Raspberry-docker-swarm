@@ -10,7 +10,7 @@ services:
       - PGID=0
     privileged: true
     volumes:
-      - '/docker/dhcp/dhcpd.conf:/etc/dhcp/dhcpd.conf'
+      - '/docker/dhcp/dhcpd-primary.conf:/etc/dhcp/dhcpd.conf'
       - '/docker/dhcp/dhcpd.hosts:/etc/dhcp/dhcpd.hosts'
     ports:
       - '67:67'
