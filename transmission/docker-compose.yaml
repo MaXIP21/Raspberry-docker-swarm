@@ -5,8 +5,17 @@ services:
     image: lscr.io/linuxserver/transmission:latest
     mac_address: b7-48-d5-a6-d1-a1
     network_mode: "host" 
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - TZ=Europe/Budapest
+      - TRANSMISSION_WEB_HOME=/transmission/ 
+      - USER=${admin_user} 
+      - PASS=${admin_password}
     ports:
       - "9091:9091/tcp"
+      - "51413:51413"
+      - "51413:51413/udp"
     deploy:
       mode: replicated
       replicas: 1
