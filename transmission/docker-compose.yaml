@@ -23,7 +23,7 @@ services:
           - node.hostname == portainer-pi3
     restart: unless-stopped
     volumes:
-      - /docker/transmission:/download
+      - /docker/transmission:/downloads
       - /docker/plex/movies:/movies
       - transmission-config:/config
 volumes:
