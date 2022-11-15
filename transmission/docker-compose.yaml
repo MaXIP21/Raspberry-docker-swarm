@@ -10,7 +10,7 @@ services:
       - TZ=Europe/Budapest
       - TRANSMISSION_WEB_HOME=/transmissionic/
       - USER=${admin_user} 
-      - FILE__PASSWORD=/run/secrets/transmission-password
+      - PASSWORD=${admin_password}
     ports:
       - "9091:9091/tcp"
       - "51413:51413"
@@ -26,10 +26,6 @@ services:
       - /docker/transmission:/downloads
       - /docker/plex/movies:/movies
       - transmission-config:/config
-    secrets:
-      - transmission-password
-secrets:
-  transmission-password:
 
 volumes:
   transmission-config:
