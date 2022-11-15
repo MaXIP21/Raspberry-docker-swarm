@@ -30,6 +30,6 @@ services:
       - transmission-password
 secrets:
   transmission-password:
-    external: true
+
 volumes:
   transmission-config:
