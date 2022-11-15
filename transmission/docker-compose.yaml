@@ -26,5 +26,7 @@ services:
       - /docker/transmission:/downloads
       - /docker/plex/movies:/movies
       - transmission-config:/config
+    secrets:
+      - my-password
 volumes:
   transmission-config:
