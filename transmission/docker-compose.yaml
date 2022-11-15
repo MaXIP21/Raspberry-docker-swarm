@@ -9,7 +9,7 @@ services:
       - PUID=1000
       - PGID=1000
       - TZ=Europe/Budapest
-      - TRANSMISSION_WEB_HOME=/combustion-release/
+      - TRANSMISSION_WEB_HOME=/transmissionic/
       - USER=${admin_user} 
       - PASS=${admin_password}
     ports:
