@@ -3,12 +3,11 @@ services:
   isc-dhcp-server:
     image: isc-dhcp-server:latest
     container_name: isc-dhcp-server
-    restart: always
+    restart: unless-stopped
     network_mode: "host" 
     environment:
       - PUID=0
       - PGID=0
-    privileged: true
     volumes:
       - '/docker/dhcp/dhcpd.conf:/etc/dhcp/dhcpd.conf'
     ports:
