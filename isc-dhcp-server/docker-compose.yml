@@ -13,7 +13,13 @@ services:
       - '/docker/dhcp/dhcpd.conf:/etc/dhcp/dhcpd.conf'
       - '/docker/dhcp/dhcpd.hosts:/etc/dhcp/dhcpd.hosts'
     ports:
-      - target: 67
-        published: 67
-        protocol: udp
-        mode: host
+      - '67:67'
+      
+    networks:
+      internal_network:
+        ipv4_address: 192.168.1.241
+
+networks:
+  internal_network:
+    external:
+      name: macvlan0
