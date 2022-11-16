@@ -16,8 +16,7 @@ services:
       - '67:67'
     networks:
       - outside
-    cap_add:
-      - NET_ADMIN
+
 networks:
   outside:
     external:
