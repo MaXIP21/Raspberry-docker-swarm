@@ -8,9 +8,10 @@ services:
     environment:
       - PUID=0
       - PGID=0
+      - use_data_dir=false
     privileged: true
     volumes:
-      - '/docker/dhcp/dhcpd-primary.conf:/etc/dhcp/dhcpd.conf'
+      - '/docker/dhcp/dhcpd.conf:/etc/dhcp/dhcpd.conf'
       - '/docker/dhcp/dhcpd.hosts:/etc/dhcp/dhcpd.hosts'
     ports:
       - '67:67'
