@@ -4,7 +4,7 @@ services:
     image: isc-dhcp-server:latest
     container_name: isc-dhcp-server 
     restart: always
-    network_mode: "host"
+    net: "host"
     environment:
       - PUID=0
       - PGID=0
