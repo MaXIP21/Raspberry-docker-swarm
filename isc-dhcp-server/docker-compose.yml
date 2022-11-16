@@ -13,11 +13,7 @@ services:
       - '/docker/dhcp/dhcpd.conf:/etc/dhcp/dhcpd.conf'
       - '/docker/dhcp/dhcpd.hosts:/etc/dhcp/dhcpd.hosts'
     ports:
-      - '67:67'
-    networks:
-      - outside
-
-networks:
-  outside:
-    external:
-      name: "host"
+      - target: 67
+        published: 67
+        protocol: udp
+        mode: host
