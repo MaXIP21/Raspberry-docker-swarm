@@ -4,7 +4,7 @@ services:
     image: isc-dhcp-server:latest
     container_name: isc-dhcp-server 
     restart: always
-    network: "host"
+    network_mode: "host"
     environment:
       - PUID=0
       - PGID=0
@@ -15,3 +15,5 @@ services:
       - '/docker/dhcp/dhcpd.hosts:/etc/dhcp/dhcpd.hosts'
     ports:
       - '67:67'
+    cap_add:
+      - NET_ADMIN
