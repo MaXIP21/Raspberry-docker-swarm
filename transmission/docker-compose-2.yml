@@ -24,8 +24,7 @@ services:
     restart: unless-stopped
     volumes:
       - ${download_dir}:/downloads
-      - /docker/plex/movies:/movies
-      - transmission-config:/config
+      - ${config_dir}:/config
 
 volumes:
   transmission-config:
