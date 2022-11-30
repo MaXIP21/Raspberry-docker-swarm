@@ -11,7 +11,7 @@ services:
       - TRANSMISSION_WEB_HOME=/transmissionic/
       - USER=${admin_user} 
       - PASSWORD=${admin_password}
-      - EXTERNAL_PORT=${EXTERNAL_PORT}
+      - EXTERNAL_PORT=${external_port}
     ports:
       - "${EXTERNAL_PORT}:9091/tcp"
       - "51413:51413"
@@ -24,7 +24,7 @@ services:
           - node.hostname == portainer-pi3
     restart: unless-stopped
     volumes:
-      - /docker/transmission:/downloads
+      - ${download_dir}:/downloads
       - /docker/plex/movies:/movies
       - transmission-config:/config
 
