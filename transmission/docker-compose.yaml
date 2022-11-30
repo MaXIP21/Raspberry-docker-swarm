@@ -13,8 +13,8 @@ services:
       - PASSWORD=${admin_password}
     ports:
       - "${external_port}:9091/tcp"
-      - "51413:51413"
-      - "51413:51413/udp"
+      - "${secondary_external_port}:51413"
+      - "${secondary_external_port}:51413/udp"
     deploy:
       mode: replicated
       replicas: 1
