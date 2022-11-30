@@ -11,9 +11,8 @@ services:
       - TRANSMISSION_WEB_HOME=/transmissionic/
       - USER=${admin_user} 
       - PASSWORD=${admin_password}
-      - EXTERNAL_PORT=${external_port}
     ports:
-      - "${EXTERNAL_PORT}:9091/tcp"
+      - "${external_port}:9091/tcp"
       - "51413:51413"
       - "51413:51413/udp"
     deploy:
