@@ -21,5 +21,6 @@ services:
     volumes:
       - /docker/plex/config:/config
       - /docker/plex/tv:/mnt/tv
+      - /docker/plex/comedy:/mnt/comedy
       - /docker/plex/movies:/mnt/movies
     restart: unless-stopped
