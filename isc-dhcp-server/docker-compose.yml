@@ -19,4 +19,4 @@ services:
       replicas: 1
       placement:
         constraints:
-          - node.hostname == swarm-worker
+          - node.hostname == portainer-pi3
