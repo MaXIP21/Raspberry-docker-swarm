@@ -12,8 +12,8 @@ services:
     volumes:
       - '/docker/dhcp/dhcpd.conf:/etc/dhcp/dhcpd.conf'
       - '/docker/dhcp/dhcpd.hosts:/etc/dhcp/dhcpd.hosts'
-    ports:
-      - '67:67'
+    #ports:
+    #  - '67:67'
     deploy:
       mode: replicated
       replicas: 1
