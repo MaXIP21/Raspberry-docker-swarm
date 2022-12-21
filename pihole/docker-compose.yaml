@@ -3,6 +3,7 @@ version: "3"
 services:
   pihole:
     image: pihole/pihole:v5.8
+    hostname: pihole
     ports:
       - "53:53/tcp"
       - "53:53/udp"
