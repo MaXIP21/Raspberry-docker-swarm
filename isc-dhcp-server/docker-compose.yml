@@ -14,12 +14,3 @@ services:
       - '/docker/dhcp/dhcpd.hosts:/etc/dhcp/dhcpd.hosts'
     ports:
       - '67:67'
-      
-    networks:
-      internal_network:
-        ipv4_address: 192.168.1.241
-
-networks:
-  internal_network:
-    external:
-      name: macvlan0
