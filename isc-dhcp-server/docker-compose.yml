@@ -1,9 +1,8 @@
-version: '3'
+version: '3.4'
 services:
   isc-dhcp-server:
     image: isc-dhcp-server:latest
     container_name: isc-dhcp-server
-    network_mode: "host"
     restart: always
     environment:
       - use_data_dir=true
@@ -14,9 +13,15 @@ services:
       - '/docker/dhcp:/data'
     #ports:
     #  - '67:67'
+    networks:
+      - outside
     deploy:
       mode: replicated
       replicas: 1
       placement:
         constraints:
           - node.hostname == swarm-worker
+networks:
+  outside:
+    external:
+      name: "host"
