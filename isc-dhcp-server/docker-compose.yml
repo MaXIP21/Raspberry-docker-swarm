@@ -6,11 +6,11 @@ services:
     restart: always
     network_mode: "host"
     environment:
-      - use_data_dir=false
+      - use_data_dir=true
+      - data_dir=/data
     privileged: true
     volumes:
-      - '/docker/dhcp/dhcpd.conf:/etc/dhcp/dhcpd.conf'
-      - '/docker/dhcp/dhcpd.hosts:/etc/dhcp/dhcpd.hosts'
+      - '/docker/dhcp:/data'
     #ports:
     #  - '67:67'
     deploy:
