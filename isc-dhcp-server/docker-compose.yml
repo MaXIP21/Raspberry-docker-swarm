@@ -12,8 +12,6 @@ services:
     privileged: true
     volumes:
       - '/docker/dhcp:/data'
-    #ports:
-    #  - '67:67'
     networks:
       - outside
     deploy:
