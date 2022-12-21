@@ -8,6 +8,7 @@ services:
     environment:
       - use_data_dir=true
       - data_dir=/data
+      - IFACE=eth0
     privileged: true
     volumes:
       - '/docker/dhcp:/data'
