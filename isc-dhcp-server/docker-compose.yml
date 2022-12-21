@@ -4,7 +4,6 @@ services:
     image: isc-dhcp-server:latest
     container_name: isc-dhcp-server 
     restart: always
-    network_mode: "host"
     environment:
       - use_data_dir=true
       - data_dir=/data
@@ -20,3 +19,10 @@ services:
       placement:
         constraints:
           - node.hostname == swarm-worker
+    networks:
+      - host
+
+networks:
+  host:
+    name: host
+    external: true
