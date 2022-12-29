@@ -1,0 +1,71 @@
+version: "3.3"
+
+services:
+  traefik:
+    image: "traefik:v2.1.4"
+    command:
+      - --log.level=INFO
+      - --entrypoints.web.address=:80
+      - --entrypoints.websecure.address=:443
+      - --providers.docker
+      - --providers.docker.exposedbydefault=false
+      - --providers.docker.swarmmode=true
+      - --providers.docker.network=traefik-public
+      - --api
+      - --api.dashboard=true
+      - --certificatesresolvers.leresolver.acme.caserver=https://acme-v02.api.letsencrypt.org/directory
+      # update your email here
+      - --certificatesresolvers.leresolver.acme.email={user_email}
+      # Make sure the this file is available and permission is set correctly
+      - --certificatesresolvers.leresolver.acme.storage=/le/acme.json
+      - --certificatesresolvers.leresolver.acme.tlschallenge=true
+    ports:
+      - "80:80"
+      - "443:443"
+    networks:
+      - traefik-public
+    volumes:
+      - "/var/run/docker.sock:/var/run/docker.sock:ro"
+      # Make sure the volume folder is created
+      - "/docker/traefik/acme.json:/le/acme.json"
+    deploy:
+      labels:
+        # Dashboard
+        - "traefik.enable=true"
+        # Change the host url here
+        - "traefik.http.routers.traefik.rule=Host(`traefik.example.com`)"
+        - "traefik.http.routers.traefik.service=api@internal"
+        - "traefik.http.services.traefik.loadbalancer.server.port=8080"
+        - "traefik.http.routers.traefik.tls.certresolver=leresolver"
+        - "traefik.http.routers.traefik.entrypoints=websecure"
+        - "traefik.http.routers.traefik.middlewares=authtraefik"
+        # Change the auth password here
+        - "traefik.http.middlewares.authtraefik.basicauth.users=admin:yournewpassword" # user/password
+        # global redirect to https
+        - "traefik.http.routers.http-catchall.rule=hostregexp(`{host:.+}`)"
+        - "traefik.http.routers.http-catchall.entrypoints=web"
+        - "traefik.http.routers.http-catchall.middlewares=redirect-to-https"
+        # middleware redirect
+        - "traefik.http.middlewares.redirect-to-https.redirectscheme.scheme=https"
+  my-app:
+    image: containous/whoami:v1.3.0
+    networks:
+      - traefik-public
+    command:
+      - --port=8082 # Our service listens on 8082
+    deploy:
+      labels:
+        - "traefik.enable=true"
+        # Change the host url here
+        - "traefik.http.routers.my-app.rule=Host(`whoami.example.com`)"
+        - "traefik.http.services.my-app.loadbalancer.server.port=8082"
+        - "traefik.http.routers.my-app.middlewares=auth"
+        - "traefik.http.routers.my-app.entrypoints=websecure"
+        - "traefik.http.routers.my-app.tls=true"
+        - "traefik.http.routers.my-app.tls.certresolver=leresolver"
+        # Change the password here
+        - "traefik.http.middlewares.auth.basicauth.users=admin:changeme" # user/password
+
+networks:
+  traefik-public:
+    external: true
