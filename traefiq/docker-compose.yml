@@ -27,6 +27,11 @@ services:
       # Make sure the volume folder is created
       - "/docker/traefik/acme.json:/le/acme.json"
     deploy:
+      mode: replicated
+      replicas: 1
+      placement:
+        constraints:
+          - node.hostname == ${node_hostname}
       labels:
         # Dashboard
         - "traefik.enable=true"
@@ -51,6 +56,11 @@ services:
     command:
       - --port=8082 # Our service listens on 8082
     deploy:
+      mode: replicated
+      replicas: 1
+      placement:
+        constraints:
+          - node.hostname == ${node_hostname}
       labels:
         - "traefik.enable=true"
         - "traefik.http.routers.my-app.rule=Host(`${whoami_host_url}`)"
