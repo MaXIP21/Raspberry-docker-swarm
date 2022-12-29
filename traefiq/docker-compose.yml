@@ -45,7 +45,7 @@ services:
         # middleware redirect
         - "traefik.http.middlewares.redirect-to-https.redirectscheme.scheme=https"
   whoami:
-    image: containous/whoami:v1.3.0
+    image: traefik/whoami
     networks:
       - traefik-public
     command:
