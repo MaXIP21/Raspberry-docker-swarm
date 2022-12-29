@@ -4,18 +4,17 @@ services:
   traefik:
     image: "traefik:v2.9"
     command:
-      - --log.level=INFO
-      - --entrypoints.websecure.address=:443
-      - --providers.docker
-      - --providers.docker.exposedbydefault=false
-      - --providers.docker.swarmmode=true
-      - --providers.docker.network=traefik-public
-      - --api
-      - --api.dashboard=true
-      - --certificatesresolvers.leresolver.acme.caserver=https://acme-staging-v02.api.letsencrypt.org/directory #https://acme-v02.api.letsencrypt.org/directory
-      - --certificatesresolvers.leresolver.acme.email=${user_email}
-      - --certificatesresolvers.leresolver.acme.storage=/le/acme.json
-      - --certificatesresolvers.leresolver.acme.tlschallenge=true
+      - "--log.level=DEBUG"
+      - "--api.insecure=true"
+      - "--providers.docker=true"
+      - "--providers.docker.exposedbydefault=false"
+      - "--entrypoints.web.address=:80"
+      - "--entrypoints.websecure.address=:443"
+      - "--certificatesresolvers.myresolver.acme.httpchallenge=true"
+      - "--certificatesresolvers.myresolver.acme.httpchallenge.entrypoint=web"
+      - "--certificatesresolvers.myresolver.acme.caserver=https://acme-staging-v02.api.letsencrypt.org/directory"
+      - "--certificatesresolvers.myresolver.acme.email=${user_email}"
+      - "--certificatesresolvers.myresolver.acme.storage=/letsencrypt/acme.json"
     ports:
       - "80:80"
       - "8080:8080"
@@ -49,6 +48,7 @@ services:
         - "traefik.http.middlewares.redirect-to-https.redirectscheme.scheme=https"
   whoami:
     image: traefik/whoami
+    container_name: "simple-service"
     networks:
       - traefik-public
     command:
@@ -61,14 +61,9 @@ services:
           - node.hostname == ${node_hostname}
       labels:
         - "traefik.enable=true"
-        - "traefik.http.routers.my-app.rule=Host(`${whoami_host_url}`)"
-        - "traefik.http.services.my-app.loadbalancer.server.port=8082"
-        - "traefik.http.routers.my-app.middlewares=auth"
-        - "traefik.http.routers.my-app.entrypoints=websecure"
-        - "traefik.http.routers.my-app.tls=true"
-        - "traefik.http.routers.my-app.tls.certresolver=leresolver"
-        - "traefik.http.middlewares.auth.basicauth.users=admin:${password}" # user/password
-
+        - "traefik.http.routers.whoami.rule=Host(`whoami.example.com`)"
+        - "traefik.http.routers.whoami.entrypoints=websecure"
+        - "traefik.http.routers.whoami.tls.certresolver=myresolver"
 networks:
   traefik-public:
     external: true
