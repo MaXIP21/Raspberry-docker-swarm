@@ -14,9 +14,7 @@ services:
       - --api
       - --api.dashboard=true
       - --certificatesresolvers.leresolver.acme.caserver=https://acme-v02.api.letsencrypt.org/directory
-      # update your email here
-      - --certificatesresolvers.leresolver.acme.email={user_email}
-      # Make sure the this file is available and permission is set correctly
+      - --certificatesresolvers.leresolver.acme.email=${user_email}
       - --certificatesresolvers.leresolver.acme.storage=/le/acme.json
       - --certificatesresolvers.leresolver.acme.tlschallenge=true
     ports:
@@ -33,14 +31,13 @@ services:
         # Dashboard
         - "traefik.enable=true"
         # Change the host url here
-        - "traefik.http.routers.traefik.rule=Host(`traefik.example.com`)"
+        - "traefik.http.routers.traefik.rule=Host(`${host_url}`)"
         - "traefik.http.routers.traefik.service=api@internal"
         - "traefik.http.services.traefik.loadbalancer.server.port=8080"
         - "traefik.http.routers.traefik.tls.certresolver=leresolver"
         - "traefik.http.routers.traefik.entrypoints=websecure"
         - "traefik.http.routers.traefik.middlewares=authtraefik"
-        # Change the auth password here
-        - "traefik.http.middlewares.authtraefik.basicauth.users=admin:yournewpassword" # user/password
+        - "traefik.http.middlewares.authtraefik.basicauth.users=admin:${password}" # user/password
         # global redirect to https
         - "traefik.http.routers.http-catchall.rule=hostregexp(`{host:.+}`)"
         - "traefik.http.routers.http-catchall.entrypoints=web"
@@ -56,15 +53,13 @@ services:
     deploy:
       labels:
         - "traefik.enable=true"
-        # Change the host url here
-        - "traefik.http.routers.my-app.rule=Host(`whoami.example.com`)"
+        - "traefik.http.routers.my-app.rule=Host(`${host_url}`)"
         - "traefik.http.services.my-app.loadbalancer.server.port=8082"
         - "traefik.http.routers.my-app.middlewares=auth"
         - "traefik.http.routers.my-app.entrypoints=websecure"
         - "traefik.http.routers.my-app.tls=true"
         - "traefik.http.routers.my-app.tls.certresolver=leresolver"
-        # Change the password here
-        - "traefik.http.middlewares.auth.basicauth.users=admin:changeme" # user/password
+        - "traefik.http.middlewares.auth.basicauth.users=admin:${password}" # user/password
 
 networks:
   traefik-public:
