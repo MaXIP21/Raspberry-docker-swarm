@@ -18,6 +18,8 @@ services:
       - INTERNAL_SUBNET=10.13.13.0 #optional
       - ALLOWEDIPS=0.0.0.0/0 #optional
       - LOG_CONFS=true #optional
+    sysctls:
+      - net.ipv4.conf.all.src_valid_mark=1
     volumes:
       - /docker/wireguard:/config
       - /lib/modules:/lib/modules #optional
