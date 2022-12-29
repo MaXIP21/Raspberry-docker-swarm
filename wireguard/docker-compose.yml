@@ -18,14 +18,8 @@ services:
       - INTERNAL_SUBNET=10.13.13.0 #optional
       - ALLOWEDIPS=0.0.0.0/0 #optional
       - LOG_CONFS=true #optional
-    networks:
-      - extlocal
     volumes:
       - /docker/wireguard:/config
       - /lib/modules:/lib/modules #optional
     ports:
       - 51820:51820/udp
-networks:
-  extlocal:
-    external:
-      name: "host"
