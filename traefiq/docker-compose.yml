@@ -5,7 +5,7 @@ services:
     image: "traefik:v2.9"
     command:
       - --log.level=INFO
-      - --entrypoints.web.address=:80
+      - --entrypoints.web.address=:8080
       - --entrypoints.websecure.address=:443
       - --providers.docker
       - --providers.docker.exposedbydefault=false
@@ -18,7 +18,7 @@ services:
       - --certificatesresolvers.leresolver.acme.storage=/le/acme.json
       - --certificatesresolvers.leresolver.acme.tlschallenge=true
     ports:
-      - "80:80"
+      - "8080:8080"
       - "443:443"
     networks:
       - traefik-public
