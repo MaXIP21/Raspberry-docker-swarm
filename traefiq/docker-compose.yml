@@ -31,21 +31,6 @@ services:
       placement:
         constraints:
           - node.hostname == ${node_hostname}
-      labels:
-        # Dashboard
-        - "traefik.enable=true"
-        # Change the host url here
-        - "traefik.http.routers.traefik.rule=Host(`${host_url}`)"
-        - "traefik.http.routers.traefik.service=api@internal"
-        - "traefik.http.services.traefik.loadbalancer.server.port=8080"
-        - "traefik.http.routers.traefik.tls.certresolver=leresolver"
-        - "traefik.http.routers.traefik.entrypoints=websecure"
-        - "traefik.http.routers.traefik.middlewares=authtraefik"
-        - "traefik.http.middlewares.authtraefik.basicauth.users=admin:${password}" # user/password
-        # global redirect to https
-        - "traefik.http.routers.http-catchall.middlewares=redirect-to-https"
-        # middleware redirect
-        - "traefik.http.middlewares.redirect-to-https.redirectscheme.scheme=https"
   whoami:
     image: traefik/whoami
     container_name: "simple-service"
@@ -61,7 +46,7 @@ services:
           - node.hostname == ${node_hostname}
       labels:
         - "traefik.enable=true"
-        - "traefik.http.routers.whoami.rule=Host(`whoami.example.com`)"
+        - "traefik.http.routers.whoami.rule=Host(`whoami.peterbacsai.com`)"
         - "traefik.http.routers.whoami.entrypoints=websecure"
         - "traefik.http.routers.whoami.tls.certresolver=myresolver"
 networks:
