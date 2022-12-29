@@ -24,7 +24,7 @@ services:
     volumes:
       - "/var/run/docker.sock:/var/run/docker.sock:ro"
       # Make sure the volume folder is created
-      - "/docker/traefik/acme.json:/le/acme.json"
+      - "/docker/traefik/acme.json:/letsencrypt/acme.json"
     deploy:
       mode: replicated
       replicas: 1
