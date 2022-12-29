@@ -44,7 +44,7 @@ services:
         - "traefik.http.routers.http-catchall.middlewares=redirect-to-https"
         # middleware redirect
         - "traefik.http.middlewares.redirect-to-https.redirectscheme.scheme=https"
-  my-app:
+  whoami:
     image: containous/whoami:v1.3.0
     networks:
       - traefik-public
@@ -53,7 +53,7 @@ services:
     deploy:
       labels:
         - "traefik.enable=true"
-        - "traefik.http.routers.my-app.rule=Host(`${host_url}`)"
+        - "traefik.http.routers.my-app.rule=Host(`${whoami_host_url}`)"
         - "traefik.http.services.my-app.loadbalancer.server.port=8082"
         - "traefik.http.routers.my-app.middlewares=auth"
         - "traefik.http.routers.my-app.entrypoints=websecure"
