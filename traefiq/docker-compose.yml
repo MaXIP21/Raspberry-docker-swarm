@@ -44,8 +44,8 @@ services:
         - "traefik.http.middlewares.authtraefik.basicauth.users=admin:${password}"
         - "traefik.http.routers.http-catchall.rule=hostregexp(`{host:.+}`)"
         - "traefik.http.routers.http-catchall.entrypoints=web"
-        - "traefik.http.routers.http-catchall.middlewares=redirect-to-https"
-        - "traefik.http.middlewares.redirect-to-https.redirectscheme.scheme=https"
+        #- "traefik.http.routers.http-catchall.middlewares=redirect-to-https"
+        #- "traefik.http.middlewares.redirect-to-https.redirectscheme.scheme=https"
   whoami:
     image: traefik/whoami
     container_name: "simple-service"
