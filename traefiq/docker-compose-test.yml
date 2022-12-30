@@ -54,6 +54,9 @@ services:
     command:
       - --port=8082 # Our service listens on 8082
     deploy:
+      placement:
+        constraints:
+          - node.labels.traefik-public.traefik-public-certificates == true
       labels:
         - "traefik.enable=true"
         - "traefik.http.routers.my-app.rule=Host(`whoami.peterbacsai.com`)"
