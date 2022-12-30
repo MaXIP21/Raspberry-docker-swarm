@@ -10,7 +10,7 @@ services:
       replicas: 1
       placement:
         constraints:
-          - node.hostname == ${node_hostname}
+          - node.hostname == ${NODESELECTOR}
     command:
       #- "--log.level=DEBUG"
       - "--api.insecure=true"
