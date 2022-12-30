@@ -13,7 +13,7 @@ services:
           - node.labels.traefik-public.traefik-public-certificates == true
       labels:
         - traefik.enable=true
-        - "traefik.http.routers.traefik.rule=Host(`${TRAEFIK_DOMAIN}`)"
+        - "traefik.http.routers.traefik.rule=Host(`${TRAEFIK_DOMAIN?Variable not set}`)"
         - "traefik.http.routers.traefik.service=api@internal"
         - "traefik.http.services.traefik.loadbalancer.server.port=8080"
         - "traefik.http.routers.traefik.tls.certresolver=leresolver"
@@ -62,7 +62,7 @@ services:
           - node.labels.traefik-public.traefik-public-certificates == true
       labels:
         - "traefik.enable=true"
-        - "traefik.http.routers.my-app.rule=Host(`${WHOAMI_DOMAIN}`)"
+        - "traefik.http.routers.my-app.rule=Host(`${WHOAMI_DOMAIN?Variable not set}`)"
         - "traefik.http.services.my-app.loadbalancer.server.port=8082"
         - "traefik.http.routers.my-app.middlewares=auth"
         - "traefik.http.routers.my-app.entrypoints=websecure"
