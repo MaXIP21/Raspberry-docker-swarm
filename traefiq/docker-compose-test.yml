@@ -1,18 +1,37 @@
-version: "3.3"
+version: '3.3'
 
 services:
 
   traefik:
-    image: "traefik:v2.9"
-    container_name: "traefik"
+    image: traefik:latest
+    ports:
+      - 80:80
+      - 443:443
     deploy:
-      mode: replicated
-      replicas: 1
       placement:
         constraints:
-          - node.hostname == ${NODESELECTOR}
+          - node.labels.traefik-public.traefik-public-certificates == true
+      labels:
+        - traefik.enable=true
+        - traefik.docker.network=traefik-public
+        - traefik.constraint-label=traefik-public
+        - traefik.http.middlewares.admin-auth.basicauth.users=${USERNAME?Variable not set}:${HASHED_PASSWORD?Variable not set}
+        - traefik.http.middlewares.https-redirect.redirectscheme.scheme=https
+        - traefik.http.middlewares.https-redirect.redirectscheme.permanent=true
+        - traefik.http.routers.traefik-public-http.rule=Host(`${DOMAIN?Variable not set}`)
+        - traefik.http.routers.traefik-public-http.entrypoints=http
+        - traefik.http.routers.traefik-public-http.middlewares=https-redirect
+        - traefik.http.routers.traefik-public-https.rule=Host(`${DOMAIN?Variable not set}`)
+        - traefik.http.routers.traefik-public-https.entrypoints=https
+        - traefik.http.routers.traefik-public-https.tls=true
+        - traefik.http.routers.traefik-public-https.service=api@internal
+        - traefik.http.routers.traefik-public-https.tls.certresolver=le
+        - traefik.http.routers.traefik-public-https.middlewares=admin-auth
+        - traefik.http.services.traefik-public.loadbalancer.server.port=8080
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock:ro
+      - traefik-public-certificates:/certificates
     command:
-      - "--log.level=DEBUG"
       - --providers.docker
       - --providers.docker.constraints=Label(`traefik.constraint-label`, `traefik-public`)
       - --providers.docker.exposedbydefault=false
@@ -25,44 +44,12 @@ services:
       - --accesslog
       - --log
       - --api
-    ports:
-      - "80:80"
-      - "8080:8080"
-    volumes:
-      - /var/run/docker.sock:/var/run/docker.sock:ro
-      - traefik-public-certificates:/certificates
-    labels:
-      - traefik.enable=true
-      - traefik.docker.network=traefik-public
-      - traefik.constraint-label=traefik-public
-      - traefik.http.middlewares.admin-auth.basicauth.users=${USERNAME?Variable not set}:${HASHED_PASSWORD?Variable not set}
-      - traefik.http.middlewares.https-redirect.redirectscheme.scheme=https
-      - traefik.http.middlewares.https-redirect.redirectscheme.permanent=true
-      - traefik.http.routers.traefik-public-http.rule=Host(`${DOMAIN?Variable not set}`)
-      - traefik.http.routers.traefik-public-http.entrypoints=http
-      - traefik.http.routers.traefik-public-http.middlewares=https-redirect
-      - traefik.http.routers.traefik-public-https.rule=Host(`${DOMAIN?Variable not set}`)
-      - traefik.http.routers.traefik-public-https.entrypoints=https
-      - traefik.http.routers.traefik-public-https.tls=true
-      - traefik.http.routers.traefik-public-https.service=api@internal
-      - traefik.http.routers.traefik-public-https.tls.certresolver=le
-      - traefik.http.routers.traefik-public-https.middlewares=admin-auth
-      - traefik.http.services.traefik-public.loadbalancer.server.port=8080
     networks:
       - traefik-public
-  whoami:
-    image: "traefik/whoami"
-    container_name: "simple-service"
-    command:
-      - --port=81
-    networks:
-      - traefik-public
-    labels:
-      - "traefik.enable=true"
-      - "traefik.http.routers.whoami.rule=Host(`whoami.peterbacsai.com`)"
-      - "traefik.http.routers.whoami.entrypoints=web"
+
 volumes:
   traefik-public-certificates:
+
 networks:
   traefik-public:
     external: true
