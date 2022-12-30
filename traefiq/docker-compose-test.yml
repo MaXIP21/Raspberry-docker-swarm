@@ -18,9 +18,9 @@ services:
         - "traefik.http.services.traefik.loadbalancer.server.port=8080"
         - "traefik.http.routers.traefik.tls.certresolver=leresolver"
         - "traefik.http.routers.traefik.entrypoints=websecure"
-        # - "traefik.http.routers.traefik.middlewares=authtraefik"
+        - "traefik.http.routers.traefik.middlewares=authtraefik"
         # Change the auth password here
-        # - "traefik.http.middlewares.authtraefik.basicauth.users=${USERNAME}:${HASHED_PASSWORD}" # user/password
+        - "traefik.http.middlewares.authtraefik.basicauth.users=${USERNAME}:${HASHED_PASSWORD}" # user/password
         # global redirect to https
         - "traefik.http.routers.http-catchall.rule=hostregexp(`{host:.+}`)"
         - "traefik.http.routers.http-catchall.entrypoints=web"
@@ -42,8 +42,8 @@ services:
       - --api
       - --api.dashboard=true
       - --api.insecure=true
-      # - --certificatesresolvers.leresolver.acme.caserver=https://acme-v02.api.letsencrypt.org/directory
-      - --certificatesresolvers.leresolver.acme.caserver=https://acme-staging-v02.api.letsencrypt.org/directory
+      - --certificatesresolvers.leresolver.acme.caserver=https://acme-v02.api.letsencrypt.org/directory
+      # - --certificatesresolvers.leresolver.acme.caserver=https://acme-staging-v02.api.letsencrypt.org/directory
       - --certificatesresolvers.leresolver.acme.email=${EMAIL}
       - --certificatesresolvers.leresolver.acme.storage=/certificates/acme.json
       - --certificatesresolvers.leresolver.acme.tlschallenge=true
@@ -64,11 +64,11 @@ services:
         - "traefik.enable=true"
         - "traefik.http.routers.my-app.rule=Host(`whoami.peterbacsai.com`)"
         - "traefik.http.services.my-app.loadbalancer.server.port=8082"
-        # - "traefik.http.routers.my-app.middlewares=auth"
+        - "traefik.http.routers.my-app.middlewares=auth"
         - "traefik.http.routers.my-app.entrypoints=websecure"
         - "traefik.http.routers.my-app.tls=true"
         - "traefik.http.routers.my-app.tls.certresolver=leresolver"
-        # - "traefik.http.middlewares.auth.basicauth.users=admin:${HASHED_PASSWORD}" # user/password
+        - "traefik.http.middlewares.auth.basicauth.users=admin:${HASHED_PASSWORD}" # user/password
 networks:
   agent-network:
     attachable: true
