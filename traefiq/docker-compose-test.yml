@@ -32,6 +32,7 @@ services:
       - /docker/traefik:/certificates
     command:
       - --log.level=DEBUG
+      - --accesslog=true
       - --entrypoints.web.address=:80
       - --entrypoints.websecure.address=:443
       - --providers.docker
