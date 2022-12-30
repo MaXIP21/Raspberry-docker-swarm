@@ -4,9 +4,10 @@ services:
   traefik:
     image: "traefik:v2.9"
     command:
-      - "--log.level=DEBUG"
-      - "--api"
-      - "--api.dashboard=true"
+      - --log.level=DEBUG
+      - --api
+      - --api.dashboard=true
+      - --api.insecure=true
       - "--entrypoints.web.address=:80"
       - "--entrypoints.websecure.address=:443"
       - "--providers.docker.swarmmode=true"
