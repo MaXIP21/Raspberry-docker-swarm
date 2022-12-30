@@ -30,7 +30,8 @@ services:
         - traefik.http.services.traefik-public.loadbalancer.server.port=8080
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock:ro
-      - traefik-public-certificates:/certificates
+      # - traefik-public-certificates:/certificates
+      - /docker/traefik:/certificates
     command:
       - --providers.docker
       - --providers.docker.constraints=Label(`traefik.constraint-label`, `traefik-public`)
@@ -47,8 +48,8 @@ services:
     networks:
       - traefik-public
 
-volumes:
-  traefik-public-certificates:
+#volumes:
+#  traefik-public-certificates:
 
 networks:
   traefik-public:
