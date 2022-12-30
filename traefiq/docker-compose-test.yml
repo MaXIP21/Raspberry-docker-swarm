@@ -62,7 +62,7 @@ services:
         - "traefik.http.routers.my-app.entrypoints=websecure"
         - "traefik.http.routers.my-app.tls=true"
         - "traefik.http.routers.my-app.tls.certresolver=leresolver"
-        - "traefik.http.middlewares.auth.basicauth.users=admin:changeme" # user/password
+        - "traefik.http.middlewares.auth.basicauth.users=admin:${HASHED_PASSWORD}" # user/password
 networks:
   agent-network:
     attachable: true
