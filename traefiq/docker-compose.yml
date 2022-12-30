@@ -8,8 +8,6 @@ services:
       - --api
       - --api.dashboard=true
       - --api.insecure=true
-      - --tracing=true
-      - --tracing.serviceName=traefik
       - --entrypoints.web.address=:80
       - --entrypoints.websecure.address=:443
       - --providers.docker.swarmmode=true
