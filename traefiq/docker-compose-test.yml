@@ -47,6 +47,7 @@ services:
       - --accesslog
       - --log
       - --api
+      - --api.dashboard=true
     networks:
       - traefik-public
       - agent-network
