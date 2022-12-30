@@ -54,7 +54,7 @@ services:
     command:
       - --port=8082 # Our service listens on 8082
     ports:
-      - 8082:8082
+      - "8082:8082"
     deploy:
       mode: replicated
       replicas: 1
