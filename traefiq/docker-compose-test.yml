@@ -53,6 +53,8 @@ services:
     container_name: "simple-service"
     command:
       - --port=81
+    networks:
+      - traefik-public
     labels:
       - "traefik.enable=true"
       - "traefik.http.routers.whoami.rule=Host(`whoami.peterbacsai.com`)"
