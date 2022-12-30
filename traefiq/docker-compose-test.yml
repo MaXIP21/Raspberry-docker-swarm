@@ -32,6 +32,7 @@ services:
       # - traefik-public-certificates:/certificates
       - /docker/traefik:/certificates
     command:
+      - --log.level=DEBUG
       - --providers.docker
       - --providers.docker.constraints=Label(`traefik.constraint-label`, `traefik-public`)
       - --providers.docker.exposedbydefault=false
