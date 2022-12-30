@@ -25,7 +25,7 @@ services:
         - traefik.http.routers.traefik-public-https.tls=true
         - traefik.http.routers.traefik-public-https.service=api@internal
         - traefik.http.routers.traefik-public-https.tls.certresolver=le
-        - traefik.http.routers.traefik-public-https.middlewares=admin-auth
+        # - traefik.http.routers.traefik-public-https.middlewares=admin-auth
         - traefik.http.services.traefik-public.loadbalancer.server.port=8080
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock:ro
