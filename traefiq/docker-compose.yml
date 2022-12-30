@@ -1,74 +1,76 @@
-version: "3.3"
+version: '3.3'
 
 services:
   traefik:
-    image: "traefik:latest"
+    image: traefik:latest
+    ports:
+      - 80:80
+      - 8080:8080
+      - 443:443
+    deploy:
+      placement:
+        constraints:
+          - node.labels.traefik-public.traefik-public-certificates == true
+      labels:
+        - traefik.enable=true
+        - "traefik.http.routers.traefik.rule=Host(`${DOMAIN}`)"
+        - "traefik.http.routers.traefik.service=api@internal"
+        - "traefik.http.services.traefik.loadbalancer.server.port=8080"
+        - "traefik.http.routers.traefik.tls.certresolver=leresolver"
+        - "traefik.http.routers.traefik.entrypoints=websecure"
+        - "traefik.http.routers.traefik.middlewares=authtraefik"
+        # Change the auth password here
+        - "traefik.http.middlewares.authtraefik.basicauth.users=${USERNAME}:${HASHED_PASSWORD}" # user/password
+        # global redirect to https
+        - "traefik.http.routers.http-catchall.rule=hostregexp(`{host:.+}`)"
+        - "traefik.http.routers.http-catchall.entrypoints=web"
+        - "traefik.http.routers.http-catchall.middlewares=redirect-to-https"
+        # middleware redirect
+        - "traefik.http.middlewares.redirect-to-https.redirectscheme.scheme=https"
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock:ro
+      - /docker/traefik:/certificates
     command:
-      - --log.level=DEBUG
+      - --log.level=INFO
+      # - --accesslog=true
+      - --entrypoints.web.address=:80
+      - --entrypoints.websecure.address=:443
+      - --providers.docker
+      - --providers.docker.exposedbydefault=false
+      - --providers.docker.swarmmode=true
+      - --providers.docker.network=traefik-public
       - --api
       - --api.dashboard=true
       - --api.insecure=true
-      - --entrypoints.web.address=:80
-      - --entrypoints.websecure.address=:443
-      - --providers.docker.swarmmode=true
-      - --providers.docker.network=traefik-public
-      - --providers.docker.exposedbydefault=false
-      - --certificatesresolvers.myresolver.acme.tlschallenge=true
-      # - --certificatesresolvers.myresolver.acme.caserver=https://acme-staging-v02.api.letsencrypt.org/directory
-      - --certificatesresolvers.myresolver.acme.email=${user_email}
-      - --certificatesresolvers.myresolver.acme.storage=/letsencrypt/acme.json
-    ports:
-      - "80:80"
-      - "8080:8080"
-      - "443:443"
+      - --certificatesresolvers.leresolver.acme.caserver=https://acme-v02.api.letsencrypt.org/directory
+      # - --certificatesresolvers.leresolver.acme.caserver=https://acme-staging-v02.api.letsencrypt.org/directory
+      - --certificatesresolvers.leresolver.acme.email=${EMAIL}
+      - --certificatesresolvers.leresolver.acme.storage=/certificates/acme.json
+      - --certificatesresolvers.leresolver.acme.tlschallenge=true
     networks:
       - traefik-public
-    volumes:
-      - "/var/run/docker.sock:/var/run/docker.sock:ro"
-      # Make sure the volume folder is created
-      - "/docker/traefik/acme.json:/letsencrypt/acme.json"
-    deploy:
-      mode: replicated
-      replicas: 1
-      placement:
-        constraints:
-          - node.hostname == ${node_hostname}
-      labels:
-        - "traefik.enable=true"
-        - "traefik.http.routers.traefik.rule=Host(`traefik.peterbacsai.com`)"
-        - "traefik.http.routers.traefik.service=api@internal"
-        - "traefik.http.routers.traefik.tls.certresolver=myresolver"
-        - "traefik.http.services.traefik.loadbalancer.server.port=8080"
-        - "traefik.http.routers.traefik.tls.certresolver=leresolver"
-        - "traefik.http.routers.traefik.entrypoints=web"
-        #- "traefik.http.routers.traefik.middlewares=authtraefik"
-        #- "traefik.http.middlewares.authtraefik.basicauth.users=admin:${password}"
-        - "traefik.http.routers.http-catchall.rule=hostregexp(`{host:.+}`)"
-        - "traefik.http.routers.http-catchall.entrypoints=web"
-        #- "traefik.http.routers.http-catchall.middlewares=redirect-to-https"
-        #- "traefik.http.middlewares.redirect-to-https.redirectscheme.scheme=https"
-  whoami:
-    image: traefik/whoami
-    container_name: "simple-service"
+      - agent-network
+  my-app:
+    image: containous/whoami:latest
     networks:
       - traefik-public
     command:
       - --port=8082 # Our service listens on 8082
-    ports:
-      - "8082:8082"
     deploy:
-      mode: replicated
-      replicas: 1
       placement:
         constraints:
-          - node.hostname == ${node_hostname}
+          - node.labels.traefik-public.traefik-public-certificates == true
       labels:
         - "traefik.enable=true"
-        - "traefik.http.routers.whoami.rule=Host(`whoami.peterbacsai.com`)"
-        - "traefik.http.routers.whoami.entrypoints=web"
-        - "traefik.http.routers.whoami.tls=true"
-        - "traefik.http.routers.whoami.tls.certresolver=myresolver"
-        - "traefik.http.services.whoami.loadbalancer.server.port=8082"
+        - "traefik.http.routers.my-app.rule=Host(`whoami.peterbacsai.com`)"
+        - "traefik.http.services.my-app.loadbalancer.server.port=8082"
+        - "traefik.http.routers.my-app.middlewares=auth"
+        - "traefik.http.routers.my-app.entrypoints=websecure"
+        - "traefik.http.routers.my-app.tls=true"
+        - "traefik.http.routers.my-app.tls.certresolver=leresolver"
+        - "traefik.http.middlewares.auth.basicauth.users=admin:${HASHED_PASSWORD}" # user/password
 networks:
+  agent-network:
+    attachable: true
   traefik-public:
     external: true
