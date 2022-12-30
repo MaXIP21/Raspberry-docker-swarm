@@ -30,6 +30,16 @@ services:
       placement:
         constraints:
           - node.hostname == ${node_hostname}
+      labels:
+        - "traefik.enable=true"
+        - "traefik.http.routers.traefik.rule=Host(`traefik.peterbacsai.com`)"
+        - "traefik.http.routers.traefik.service=api@internal"
+        - "traefik.http.routers.traefik.tls.certresolver=leresolver"
+        - "traefik.http.services.traefik.loadbalancer.server.port=8080"
+        - "traefik.http.middlewares.authtraefik.basicauth.users=admin:${password}"
+        - "traefik.http.routers.http-catchall.rule=hostregexp(`{host:.+}`)"
+        - "traefik.http.routers.http-catchall.entrypoints=web"
+        - "traefik.http.routers.http-catchall.middlewares=redirect-to-https"
   whoami:
     image: traefik/whoami
     container_name: "simple-service"
@@ -47,7 +57,9 @@ services:
         - "traefik.enable=true"
         - "traefik.http.routers.whoami.rule=Host(`whoami.peterbacsai.com`)"
         - "traefik.http.routers.whoami.entrypoints=websecure"
+        - "traefik.http.routers.whoami.tls=true"
         - "traefik.http.routers.whoami.tls.certresolver=myresolver"
+        - "traefik.http.services.whoami.loadbalancer.server.port=8082"
 networks:
   traefik-public:
     external: true
