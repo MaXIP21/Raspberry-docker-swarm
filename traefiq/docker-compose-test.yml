@@ -50,7 +50,7 @@ services:
       - traefik-public
       - agent-network
   my-app:
-    image: containous/whoami:v1.3.0
+    image: containous/whoami:latest
     networks:
       - traefik-public
     command:
