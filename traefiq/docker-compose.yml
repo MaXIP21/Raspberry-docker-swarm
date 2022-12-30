@@ -50,25 +50,26 @@ services:
     networks:
       - traefik-public
       - agent-network
-  my-app:
-    image: containous/whoami:latest
-    networks:
-      - traefik-public
-    command:
-      - --port=8082 # Our service listens on 8082
-    deploy:
-      placement:
-        constraints:
-          - node.labels.traefik-public.traefik-public-certificates == true
-      labels:
-        - "traefik.enable=true"
-        - "traefik.http.routers.my-app.rule=Host(`${WHOAMI_DOMAIN?Variable not set}`)"
-        - "traefik.http.services.my-app.loadbalancer.server.port=8082"
-        - "traefik.http.routers.my-app.middlewares=auth"
-        - "traefik.http.routers.my-app.entrypoints=websecure"
-        - "traefik.http.routers.my-app.tls=true"
-        - "traefik.http.routers.my-app.tls.certresolver=leresolver"
-        - "traefik.http.middlewares.auth.basicauth.users=admin:${HASHED_PASSWORD}" # user/password
+  # If you want to test whoami app remove the hashmark below
+  #my-app:
+  #  image: containous/whoami:latest
+  #  networks:
+  #    - traefik-public
+  #  command:
+  #    - --port=8082 # Our service listens on 8082
+  #  deploy:
+  #    placement:
+  #      constraints:
+  #        - node.labels.traefik-public.traefik-public-certificates == true
+  #    labels:
+  #      - "traefik.enable=true"
+  #      - "traefik.http.routers.my-app.rule=Host(`${WHOAMI_DOMAIN?Variable not set}`)"
+  #      - "traefik.http.services.my-app.loadbalancer.server.port=8082"
+  #      - "traefik.http.routers.my-app.middlewares=auth"
+  #      - "traefik.http.routers.my-app.entrypoints=websecure"
+  #      - "traefik.http.routers.my-app.tls=true"
+  #      - "traefik.http.routers.my-app.tls.certresolver=leresolver"
+  #      - "traefik.http.middlewares.auth.basicauth.users=admin:${HASHED_PASSWORD}" # user/password
 networks:
   agent-network:
     attachable: true
