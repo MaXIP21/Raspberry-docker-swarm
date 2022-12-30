@@ -54,5 +54,7 @@ services:
 #  traefik-public-certificates:
 
 networks:
+  agent-network:
+    attachable: true
   traefik-public:
     external: true
