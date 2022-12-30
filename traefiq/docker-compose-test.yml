@@ -63,11 +63,11 @@ services:
         - "traefik.enable=true"
         - "traefik.http.routers.my-app.rule=Host(`whoami.peterbacsai.com`)"
         - "traefik.http.services.my-app.loadbalancer.server.port=8082"
-        - "traefik.http.routers.my-app.middlewares=auth"
-        - "traefik.http.routers.my-app.entrypoints=web"
+        # - "traefik.http.routers.my-app.middlewares=auth"
+        - "traefik.http.routers.my-app.entrypoints=websecure"
         - "traefik.http.routers.my-app.tls=true"
         - "traefik.http.routers.my-app.tls.certresolver=leresolver"
-        - "traefik.http.middlewares.auth.basicauth.users=admin:${HASHED_PASSWORD}" # user/password
+        # - "traefik.http.middlewares.auth.basicauth.users=admin:${HASHED_PASSWORD}" # user/password
 networks:
   agent-network:
     attachable: true
