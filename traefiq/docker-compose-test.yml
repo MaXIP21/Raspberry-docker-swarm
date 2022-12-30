@@ -27,7 +27,8 @@ services:
       - "80:80"
       - "8080:8080"
     volumes:
-      - "/var/run/docker.sock:/var/run/docker.sock:ro"
+      - /var/run/docker.sock:/var/run/docker.sock:ro
+      - traefik-public-certificates:/certificates
     labels:
       - traefik.enable=true
       - traefik.docker.network=traefik-public
@@ -54,6 +55,8 @@ services:
       - "traefik.enable=true"
       - "traefik.http.routers.whoami.rule=Host(`whoami.peterbacsai.com`)"
       - "traefik.http.routers.whoami.entrypoints=web"
+volumes:
+  traefik-public-certificates:
 networks:
   traefik-public:
     external: true
