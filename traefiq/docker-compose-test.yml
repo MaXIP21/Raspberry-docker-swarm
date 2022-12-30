@@ -40,6 +40,7 @@ services:
       - --providers.docker.network=traefik-public
       - --api
       - --api.dashboard=true
+      - --api.insecure=true
       # - --certificatesresolvers.leresolver.acme.caserver=https://acme-v02.api.letsencrypt.org/directory
       - --certificatesresolvers.myresolver.acme.caserver=https://acme-staging-v02.api.letsencrypt.org/directory
       - --certificatesresolvers.leresolver.acme.email=${EMAIL}
