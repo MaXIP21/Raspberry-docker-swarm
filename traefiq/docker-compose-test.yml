@@ -49,6 +49,7 @@ services:
       - --api
     networks:
       - traefik-public
+      - agent-network
 
 #volumes:
 #  traefik-public-certificates:
