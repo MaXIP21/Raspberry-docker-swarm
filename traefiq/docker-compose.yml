@@ -11,7 +11,6 @@ services:
       - "--entrypoints.websecure.address=:443"
       - "--providers.docker.swarmmode=true"
       - "--providers.docker.network=traefik-public"
-      - "--providers.docker=true"
       - "--providers.docker.exposedbydefault=false"
       - "--certificatesresolvers.myresolver.acme.tlschallenge=true"
       - "--certificatesresolvers.myresolver.acme.caserver=https://acme-staging-v02.api.letsencrypt.org/directory"
