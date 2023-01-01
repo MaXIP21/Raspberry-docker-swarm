@@ -2,7 +2,7 @@ version: '3'
 services:
   plex_server:
     image: lscr.io/linuxserver/plex:latest
-    container_name: plex-ubuntu
+    # container_name: plex-ubuntu
     restart: unless-stopped
     network_mode: "host" 
     privileged: true
