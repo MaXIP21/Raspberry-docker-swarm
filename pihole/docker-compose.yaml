@@ -22,7 +22,7 @@ services:
       replicas: 1
       placement:
         constraints:
-          - node.hostname == swarm-worker
+          - node.hostname == ${NODEPLACEMENT}
     cap_add:
       - NET_ADMIN
     restart: unless-stopped
