@@ -15,9 +15,9 @@ services:
     deploy:
       mode: replicated
       replicas: 2
-      #placement:
-      #  constraints:
-      #    - node.hostname == swarm-worker
+      placement:
+        constraints:
+          - node.role == worker
     volumes:
       - /docker/plex/config:/config
       - /docker/plex/tv:/mnt/tv
