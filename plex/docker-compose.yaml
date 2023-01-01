@@ -13,6 +13,7 @@ services:
       - PGID=1000
       - VERSION=docker
     deploy:
+      mode: global
       placement:
         constraints:
           - node.role == worker
