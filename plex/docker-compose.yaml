@@ -14,9 +14,12 @@ services:
       - VERSION=docker
     deploy:
       mode: global
-      placement:
-        constraints:
-          - node.role == worker
+      replicas: 2
+        placement:
+          max_replicas_per_node: 1
+      #placement:
+      #  constraints:
+      #    - node.role == worker
     volumes:
       - /docker/plex/config:/config
       - /docker/plex/tv:/mnt/tv
