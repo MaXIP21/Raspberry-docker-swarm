@@ -17,7 +17,7 @@ services:
       replicas: 2
       placement:
         constraints:
-          max_replicas_per_node: 1
+          - max_replicas_per_node: 1
       #placement:
       #  constraints:
       #    - node.role == worker
