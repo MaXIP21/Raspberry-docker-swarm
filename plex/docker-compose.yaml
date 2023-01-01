@@ -13,8 +13,6 @@ services:
       - PGID=1000
       - VERSION=docker
     deploy:
-      mode: replicated
-      replicas: 2
       placement:
         constraints:
           - node.role == worker
