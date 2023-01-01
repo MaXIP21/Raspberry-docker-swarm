@@ -13,9 +13,10 @@ services:
       - PGID=1000
       - VERSION=docker
     deploy:
-      mode: global
+      mode: replicated
       replicas: 2
-        placement:
+      placement:
+        constraints:
           max_replicas_per_node: 1
       #placement:
       #  constraints:
