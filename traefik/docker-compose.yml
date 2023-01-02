@@ -20,7 +20,7 @@ services:
         - "traefik.http.routers.traefik.entrypoints=websecure"
         - "traefik.http.routers.traefik.middlewares=authtraefik"
         # Change the auth password here
-        - "traefik.http.middlewares.authtraefik.basicauth.users=${USERNAME}:${HASHED_PASSWORD}" # user/password
+        - "traefik.http.middlewares.authtraefik.basicauth.users=${USERNAME?Variable not set}:${HASHED_PASSWORD?Variable not set}" # user/password
         # global redirect to https
         - "traefik.http.routers.http-catchall.rule=hostregexp(`{host:.+}`)"
         - "traefik.http.routers.http-catchall.entrypoints=web"
@@ -44,7 +44,7 @@ services:
       - --api.insecure=true
       - --certificatesresolvers.leresolver.acme.caserver=https://acme-v02.api.letsencrypt.org/directory
       # - --certificatesresolvers.leresolver.acme.caserver=https://acme-staging-v02.api.letsencrypt.org/directory
-      - --certificatesresolvers.leresolver.acme.email=${EMAIL}
+      - --certificatesresolvers.leresolver.acme.email=${EMAIL?Variable not set}
       - --certificatesresolvers.leresolver.acme.storage=/certificates/acme.json
       - --certificatesresolvers.leresolver.acme.tlschallenge=true
     networks:
