@@ -33,5 +33,6 @@ services:
       - traefik-public
 networks:
   traefik-public:
+    external: true
 volumes:
   heimdall:
