@@ -39,6 +39,7 @@ services:
       - MYSQL_DATABASE=${MYSQL_DB}
       - MYSQL_USER=${MYSQL_USER}
       - MYSQL_HOST=db
+      - ServerName=${DOMAIN}
     deploy:
       mode: replicated
       replicas: 1
