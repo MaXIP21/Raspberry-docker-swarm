@@ -31,8 +31,8 @@ services:
       - /var/run/docker.sock:/var/run/docker.sock:ro
       - /docker/traefik:/certificates
     command:
-      - --log.level=INFO
-      # - --accesslog=true
+      - --log.level=DEBUG
+      - --accesslog=true
       - --entrypoints.web.address=:80
       - --entrypoints.websecure.address=:443
       - --providers.docker
