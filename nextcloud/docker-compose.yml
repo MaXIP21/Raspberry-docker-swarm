@@ -70,4 +70,3 @@ volumes:
 networks:
   nextcloud_network:
   traefik-public:
-    external: true
