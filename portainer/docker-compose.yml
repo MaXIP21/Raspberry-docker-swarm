@@ -32,14 +32,14 @@ services:
           - traefik.enable=true
           - traefik.docker.network=traefik-public
           - traefik.constraint-label=traefik-public
-          - traefik.http.routers.heimdall-http.rule=Host(`${DOMAIN?Variable not set}`)
-          - traefik.http.routers.heimdall-http.entrypoints=http
-          - traefik.http.routers.heimdall-http.middlewares=https-redirect
-          - traefik.http.routers.heimdall-https.rule=Host(`${DOMAIN?Variable not set}`)
-          - traefik.http.routers.heimdall-https.entrypoints=https
-          - traefik.http.routers.heimdall-https.tls=true
-          - traefik.http.routers.heimdall-https.tls.certresolver=le
-          - traefik.http.services.heimdall.loadbalancer.server.port=9000
+          - traefik.http.routers.portainer-http.rule=Host(`${DOMAIN?Variable not set}`)
+          - traefik.http.routers.portainer-http.entrypoints=http
+          - traefik.http.routers.portainer-http.middlewares=https-redirect
+          - traefik.http.routers.portainer-https.rule=Host(`${DOMAIN?Variable not set}`)
+          - traefik.http.routers.portainer-https.entrypoints=https
+          - traefik.http.routers.portainer-https.tls=true
+          - traefik.http.routers.portainer-https.tls.certresolver=le
+          - traefik.http.services.portainer.loadbalancer.server.port=9000
 networks:
   agent-network:
     attachable: true
