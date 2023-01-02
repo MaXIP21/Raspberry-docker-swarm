@@ -41,6 +41,9 @@ services:
           - traefik.http.routers.portainer-https.tls=true
           - traefik.http.routers.portainer-https.tls.certresolver=leresolver
           - traefik.http.services.portainer.loadbalancer.server.port=9000
+    networks:
+      - agent-network
+      - traefik-public
 networks:
   agent-network:
     attachable: true
