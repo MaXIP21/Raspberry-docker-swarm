@@ -26,10 +26,10 @@ services:
           - traefik.http.routers.heimdall-https.entrypoints=https
           - traefik.http.routers.heimdall-https.tls=true
           - traefik.http.routers.heimdall-https.tls.certresolver=le
-          - traefik.http.services.heimdall.loadbalancer.server.port=8081
+          - traefik.http.services.heimdall.loadbalancer.server.port=9443
     ports:
       - 8081:80
-      # - 443:443
+      - 9443:443
     restart: unless-stopped
 volumes:
   heimdall:
