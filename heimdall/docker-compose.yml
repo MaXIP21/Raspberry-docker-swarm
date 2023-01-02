@@ -22,6 +22,8 @@ services:
           - traefik.http.routers.heimdall-http.middlewares=redirect-to-https
           - traefik.http.routers.heimdall-https.rule=Host(`${DOMAIN?Variable not set}`)
           - traefik.http.routers.heimdall-https.entrypoints=websecure
+          - traefik.http.routers.heimdall-https.middlewares=authheimdall
+          - traefik.http.middlewares.authheimdall.basicauth.users=${USERNAME?Variable not set}:${HASHED_PASSWORD?Variable not set}
           - traefik.http.routers.heimdall-https.tls=true
           - traefik.http.routers.heimdall-https.tls.certresolver=leresolver
           - traefik.http.services.heimdall.loadbalancer.server.port=80
