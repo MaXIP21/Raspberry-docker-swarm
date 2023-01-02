@@ -21,7 +21,7 @@ services:
           - traefik.constraint-label=traefik-public
           - traefik.http.routers.heimdall-http.rule=Host(`${DOMAIN?Variable not set}`)
           - traefik.http.routers.heimdall-http.entrypoints=web
-          - traefik.http.routers.heimdall-http.middlewares=https-redirect
+          - traefik.http.routers.heimdall-http.middlewares=redirect-to-https
           - traefik.http.routers.heimdall-https.rule=Host(`${DOMAIN?Variable not set}`)
           - traefik.http.routers.heimdall-https.entrypoints=websecure
           - traefik.http.routers.heimdall-https.tls=true
