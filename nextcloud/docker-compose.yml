@@ -7,6 +7,7 @@ services:
 
   mariadb:
     image: mariadb
+    command: --transaction-isolation=READ-COMMITTED --binlog-format=ROW --innodb-file-per-table=1 --skip-innodb-read-only-compressed
     container_name: nextcloud-mariadb
     networks:
       - nextcloud_network
@@ -26,6 +27,8 @@ services:
     networks:
       - nextcloud_network
       - traefik-public
+    links:
+      - mariadb
     depends_on:
       - mariadb
     volumes:
