@@ -49,7 +49,6 @@ services:
       - --certificatesresolvers.leresolver.acme.tlschallenge=true
     networks:
       - traefik-public
-      - agent-network
   # If you want to test whoami app remove the hashmark below
   #my-app:
   #  image: containous/whoami:latest
@@ -71,7 +70,5 @@ services:
   #      - "traefik.http.routers.my-app.tls.certresolver=leresolver"
   #      - "traefik.http.middlewares.auth.basicauth.users=admin:${HASHED_PASSWORD}" # user/password
 networks:
-  agent-network:
-    attachable: true
   traefik-public:
     external: true
