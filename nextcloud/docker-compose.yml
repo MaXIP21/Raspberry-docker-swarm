@@ -23,8 +23,6 @@ services:
   nextcloud:
     image: nextcloud:latest
     container_name: nextcloud-app
-    ports:
-      - 8088:80
     networks:
       - traefik-public
     depends_on:
