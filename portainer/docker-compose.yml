@@ -30,8 +30,8 @@ services:
           - node.role == manager
       labels:
           - traefik.enable=true
-          - traefik.docker.network=traefik-public
-          - traefik.constraint-label=traefik-public
+          #- traefik.docker.network=traefik-public
+          #- traefik.constraint-label=traefik-public
           - traefik.http.routers.portainer-http.rule=Host(`${DOMAIN?Variable not set}`)
           - traefik.http.routers.portainer-http.entrypoints=web
           - traefik.http.routers.portainer-http.middlewares=https-redirect
@@ -44,6 +44,6 @@ networks:
   agent-network:
     attachable: true
   traefik-public:
-    external: true
+    # external: true
 volumes:
   portainer_data:
