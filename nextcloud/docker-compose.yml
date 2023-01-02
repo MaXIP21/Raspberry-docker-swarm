@@ -61,7 +61,15 @@ services:
     restart: unless-stopped
 volumes:
   nextcloud:
+    driver_opts:
+      type: "nfs"
+      o: "addr=${NFS_HOST},nfsvers=4"
+      device: ":/docker/nextcloud"
   db:
+    driver_opts:
+      type: "nfs"
+      o: "addr=${NFS_HOST},nfsvers=4"
+      device: ":/docker/mariadb"
 
 networks:
   nextcloud_network:
