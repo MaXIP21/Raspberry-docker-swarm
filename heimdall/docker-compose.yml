@@ -29,7 +29,7 @@ services:
           - traefik.http.services.portainer.loadbalancer.server.port=8081
     ports:
       - 8081:80
-      - 443:443
+      # - 443:443
     restart: unless-stopped
 volumes:
   heimdall:
