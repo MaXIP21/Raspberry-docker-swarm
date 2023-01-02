@@ -31,5 +31,10 @@ services:
     #  - 8081:80
     #  - 9443:443
     restart: unless-stopped
+    networks:
+      - traefik-public
+networks:
+  traefik-public:
+    external: true
 volumes:
   heimdall:
