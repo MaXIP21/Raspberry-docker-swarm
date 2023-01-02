@@ -24,6 +24,7 @@ services:
     image: nextcloud:latest
     container_name: nextcloud-app
     networks:
+      - nextcloud_network
       - traefik-public
     depends_on:
       - mariadb
@@ -67,5 +68,6 @@ volumes:
       device: ":/docker/mariadb"
 
 networks:
+  nextcloud_network:
   traefik-public:
     external: true
