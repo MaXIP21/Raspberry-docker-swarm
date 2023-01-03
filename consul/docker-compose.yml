@@ -51,4 +51,4 @@ services:
       
 networks:
   consul-bridge:
-    # external: true
+     external: true
