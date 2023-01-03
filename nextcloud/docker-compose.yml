@@ -1,6 +1,4 @@
-# for more information you can see the github pull below
-# link: https://github.com/nextcloud/docker/pull/630/files
-
+---
 version: '3.8'
 
 services:
