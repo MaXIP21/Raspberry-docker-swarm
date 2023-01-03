@@ -12,7 +12,7 @@ services:
           - node.hostname == ${NODENAME}
     restart: always
     volumes:
-     - consul_nfs/config/server.json:/consul/config/server.json
+     - consul_nfs_server:/consul/config/server.json
     networks:
       - bridge
     ports:
@@ -31,17 +31,22 @@ services:
           - node.hostname == ${CLIENT_NODENAME}
     restart: always
     volumes:
-     - consul_nfs/config/client.json:/consul/config/client.json
+     - consul_nfs_client:/consul/config/client.json
     networks:
       - bridge
     command: "agent"
 
 volumes:
-  consul_nfs:
+  consul_nfs_server:
     driver_opts:
       type: "nfs"
       o: "addr=${NFS_HOST},nfsvers=4"
-      device: ":/docker/consul"
+      device: ":/docker/consul/config/server.json"
+  consul_nfs_client:
+    driver_opts:
+      type: "nfs"
+      o: "addr=${NFS_HOST},nfsvers=4"
+      device: ":/docker/consul/config/client.json"
       
 networks:
   bridge:
