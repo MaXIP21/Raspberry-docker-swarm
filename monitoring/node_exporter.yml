@@ -4,7 +4,6 @@ services:
 
   node-exporter:
     image: prom/node-exporter
-    container_name: node-exporter
     restart: always
     deploy:
       mode: replicated
