@@ -17,10 +17,10 @@ services:
           - traefik.http.routers.consul.rule=Host(`${DOMAIN?Variable not set}`)
           - traefik.http.routers.consul.entrypoints=web
           - traefik.http.routers.consul.middlewares=redirect-to-https
-          - traefik.http.routers.consul.rule=Host(`${DOMAIN?Variable not set}`)
-          - traefik.http.routers.consul.entrypoints=websecure
-          - traefik.http.routers.consul.tls=true
-          - traefik.http.routers.pconsul.tls.certresolver=leresolver
+          - traefik.http.routers.consuls.rule=Host(`${DOMAIN?Variable not set}`)
+          - traefik.http.routers.consuls.entrypoints=websecure
+          - traefik.http.routers.consuls.tls=true
+          - traefik.http.routers.consuls.tls.certresolver=leresolver
           - traefik.http.services.portainer.loadbalancer.server.port=8500
     restart: always
     volumes:
