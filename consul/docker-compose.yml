@@ -12,14 +12,14 @@ services:
           - node.hostname == ${NODENAME}
     restart: always
     volumes:
-     - consul_nfs:/consul
+     - consul_nfs/config/server.json:/consul/config/server.json
     networks:
       - bridge
     ports:
       - "8500:8500"
       - "8600:8600/tcp"
       - "8600:8600/udp"
-    command: ["agent", "-bind={{ GetInterfaceIP \"eth0\" }}", "-client=0.0.0.0", "-ui"]
+    command: "agent"
 
   consul-client:
     image: hashicorp/consul:1.10.0
@@ -31,7 +31,7 @@ services:
           - node.hostname == ${CLIENT_NODENAME}
     restart: always
     volumes:
-     - consul_nfs:/consul
+     - consul_nfs/config/client.json:/consul/config/client.json
     networks:
       - bridge
     command: "agent"
