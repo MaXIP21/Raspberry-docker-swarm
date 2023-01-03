@@ -39,30 +39,6 @@ services:
       - 9090:9090
     command: --web.enable-lifecycle  --config.file=/etc/prometheus/prometheus.yml
 
-  node-exporter:
-    image: prom/node-exporter
-    container_name: node-exporter
-    restart: always
-    deploy:
-      mode: replicated
-      replicas: 1
-      placement:
-        constraints:
-          - node.hostname == ${NODENAME}
-    volumes:
-      - /proc:/host/proc:ro
-      - /sys:/host/sys:ro
-      - /:/rootfs:ro
-    command: 
-      - '--path.procfs=/host/proc' 
-      - '--path.sysfs=/host/sys'
-      - --collector.filesystem.ignored-mount-points
-      - "^/(sys|proc|dev|host|etc|rootfs/var/lib/docker/containers|rootfs/var/lib/docker/overlay2|rootfs/run/docker/netns|rootfs/var/lib/docker/aufs)($$|/)"
-    networks:
-      - consul-bridge
-    ports:
-      - 9100:9100
-
 networks:
   consul-bridge:
     external: true
