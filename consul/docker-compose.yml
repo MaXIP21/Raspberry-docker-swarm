@@ -27,7 +27,9 @@ services:
     volumes:
      - /docker/consul/server:/consul
     networks:
-      - bridge
+      bridge:
+        aliases:
+          - consul-server
       #- traefik-public
     ports:
       - "8500:8500"
