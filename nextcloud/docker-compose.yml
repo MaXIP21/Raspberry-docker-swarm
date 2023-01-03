@@ -38,7 +38,7 @@ services:
       - MYSQL_PASSWORD=${MYSQL_PW}
       - MYSQL_DATABASE=${MYSQL_DB}
       - MYSQL_USER=${MYSQL_USER}
-      - MYSQL_HOST=db
+      - MYSQL_HOST=mariadb
     deploy:
       mode: replicated
       replicas: 1
