@@ -32,7 +32,7 @@ services:
           - node.hostname == ${NODE1}
     restart: always
     volumes:
-     - /docker/consul/client/config/client.json:/consul/config/client.json
+     - /docker/consul/client:/consul/config
     networks:
       - consul-bridge
     command: ["agent", "-node=${NODE1_NAME}"]
@@ -47,7 +47,7 @@ services:
           - node.hostname == ${NODE2}
     restart: always
     volumes:
-     - /docker/consul/client/config/client1.json:/consul/config/client.json
+     - /docker/consul/client:/consul/config
     networks:
       - consul-bridge
     command: ["agent", "-node=${NODE2_NAME}"]
