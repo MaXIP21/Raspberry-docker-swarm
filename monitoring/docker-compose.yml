@@ -17,7 +17,7 @@ services:
       - /docker/monitoring/grafana/provisioning/:/etc/grafana/provisioning
       - /docker/monitoring/grafana/dashboards/:/var/lib/grafana/dashboards
     networks:
-      - consul_consul-bridge
+      - consul-bridge
     ports:
       - "3000:3000"
 
@@ -34,7 +34,7 @@ services:
     volumes:
       - /docker/monitoring/prometheus/prometheus.yml:/etc/prometheus/prometheus.yml
     networks:
-      - consul_consul-bridge
+      - consul-bridge
     ports:
       - 9090:9090
     command: --web.enable-lifecycle  --config.file=/etc/prometheus/prometheus.yml
@@ -59,10 +59,10 @@ services:
       - --collector.filesystem.ignored-mount-points
       - "^/(sys|proc|dev|host|etc|rootfs/var/lib/docker/containers|rootfs/var/lib/docker/overlay2|rootfs/run/docker/netns|rootfs/var/lib/docker/aufs)($$|/)"
     networks:
-      - consul_consul-bridge
+      - consul-bridge
     ports:
       - 9100:9100
 
 networks:
-  consul_consul-bridge:
+  consul-bridge:
     external: true
