@@ -10,25 +10,11 @@ services:
       placement:
         constraints:
           - node.hostname == ${NODENAME}
-      #labels:
-      #    - traefik.enable=true
-      #    - traefik.docker.network=traefik-public
-      #    - traefik.constraint-label=traefik-public
-      #    - traefik.http.routers.consul.rule=Host(`${DOMAIN?Variable not set}`)
-      #    - traefik.http.routers.consul.entrypoints=web
-      #    - traefik.http.routers.consul.middlewares=redirect-to-https
-      #    - traefik.http.routers.consuls.rule=Host(`${DOMAIN?Variable not set}`)
-      #    - traefik.http.routers.consuls.entrypoints=websecure
-      #    - traefik.http.routers.consuls.tls=true
-      #    - traefik.http.routers.consuls.tls.certresolver=leresolver
-      #    - traefik.http.services.consul.loadbalancer.server.port=8500
     restart: always
     volumes:
      - /docker/consul/server:/consul
     networks:
-      bridge:
-        aliases:
-          - consul-server
+      - consul-bridge
       #- traefik-public
     ports:
       - "8500:8500"
@@ -48,7 +34,7 @@ services:
     volumes:
      - /docker/consul/client:/consul
     networks:
-      - bridge
+      - consul-bridge
     command: "agent"
 
 #volumes:
@@ -64,8 +50,5 @@ services:
 #      device: ":/docker/consul/client"
       
 networks:
-  bridge:
+  consul-bridge:
     external: true
-  #traefik-public:
-  #  external: true
-  
