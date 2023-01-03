@@ -14,7 +14,7 @@ services:
     volumes:
      - consul:/consul:ro
     networks:
-      - consul
+      - bridge
     ports:
       - "8500:8500"
       - "8600:8600/tcp"
@@ -33,7 +33,7 @@ services:
     volumes:
      - consul:/consul:ro
     networks:
-      - consul
+      - bridge
     command: "agent"
 
 volumes:
@@ -44,5 +44,4 @@ volumes:
       device: ":/docker/consul"
       
 networks:
-  consul:
-    driver: bridge
+  bridge:
