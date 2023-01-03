@@ -23,16 +23,16 @@ services:
           - node.hostname == ${NODESELECTOR}
       labels:
           - traefik.enable=true
-          - traefik.http.routers.heimdall-http.rule=Host(`${DOMAIN?Variable not set}`)
-          - traefik.http.routers.heimdall-http.entrypoints=web
-          - traefik.http.routers.heimdall-http.middlewares=redirect-to-https
-          - traefik.http.routers.heimdall-https.rule=Host(`${DOMAIN?Variable not set}`)
-          - traefik.http.routers.heimdall-https.entrypoints=websecure
-          - traefik.http.routers.heimdall-https.middlewares=authheimdall
-          - traefik.http.middlewares.authheimdall.basicauth.users=${USERNAME?Variable not set}:${HASHED_PASSWORD?Variable not set}
-          - traefik.http.routers.heimdall-https.tls=true
-          - traefik.http.routers.heimdall-https.tls.certresolver=leresolver
-          - traefik.http.services.heimdall.loadbalancer.server.port=80
+          - traefik.http.routers.nginx-http.rule=Host(`${DOMAIN?Variable not set}`)
+          - traefik.http.routers.nginx-http.entrypoints=web
+          - traefik.http.routers.nginx-http.middlewares=redirect-to-https
+          - traefik.http.routers.nginx-https.rule=Host(`${DOMAIN?Variable not set}`)
+          - traefik.http.routers.nginx-https.entrypoints=websecure
+          #- traefik.http.routers.nginx-https.middlewares=authnginx
+          #- traefik.http.middlewares.authnginx.basicauth.users=${USERNAME?Variable not set}:${HASHED_PASSWORD?Variable not set}
+          - traefik.http.routers.nginx-https.tls=true
+          - traefik.http.routers.nginx-https.tls.certresolver=leresolver
+          - traefik.http.services.nginx.loadbalancer.server.port=80
 volumes:
   src:
     driver_opts:
