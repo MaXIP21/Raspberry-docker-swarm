@@ -12,7 +12,7 @@ services:
           - node.hostname == ${NODENAME}
     restart: always
     volumes:
-     - consul_nfs_server:/consul/config
+     - consul_nfs_server:/consul
     networks:
       - bridge
     ports:
@@ -31,7 +31,7 @@ services:
           - node.hostname == ${CLIENT_NODENAME}
     restart: always
     volumes:
-     - consul_nfs_client:/consul/config
+     - consul_nfs_client:/consul
     networks:
       - bridge
     command: "agent"
