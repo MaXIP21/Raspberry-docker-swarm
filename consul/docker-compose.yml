@@ -50,3 +50,6 @@ services:
       
 networks:
   bridge:
+  consul_public:
+    external: true
+  
