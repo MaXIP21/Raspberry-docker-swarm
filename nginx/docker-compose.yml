@@ -5,6 +5,7 @@ services:
   web:
     image: nginx
     networks:
+      - nginx
       - traefik-public
     ports:
       - 8089:80
@@ -47,3 +48,5 @@ volumes:
 networks:
   traefik-public:
     external: true
+  nginx:
+    
