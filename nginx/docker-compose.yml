@@ -1,0 +1,47 @@
+---
+version: '3.3'
+
+services:
+  web:
+    image: nginx
+    networks:
+      - traefik-public
+    volumes:
+     - templates:/etc/nginx/templates
+     - src:/usr/share/nginx/html
+    environment:
+     - NGINX_HOST=${DOMAIN?Variable not set}
+     - NGINX_PORT=80
+    deploy:
+      mode: replicated
+      replicas: 1
+      placement:
+        constraints:
+          - node.hostname == swarm-worker
+      labels:
+          - traefik.enable=true
+          - traefik.http.routers.heimdall-http.rule=Host(`${DOMAIN?Variable not set}`)
+          - traefik.http.routers.heimdall-http.entrypoints=web
+          - traefik.http.routers.heimdall-http.middlewares=redirect-to-https
+          - traefik.http.routers.heimdall-https.rule=Host(`${DOMAIN?Variable not set}`)
+          - traefik.http.routers.heimdall-https.entrypoints=websecure
+          - traefik.http.routers.heimdall-https.middlewares=authheimdall
+          - traefik.http.middlewares.authheimdall.basicauth.users=${USERNAME?Variable not set}:${HASHED_PASSWORD?Variable not set}
+          - traefik.http.routers.heimdall-https.tls=true
+          - traefik.http.routers.heimdall-https.tls.certresolver=leresolver
+          - traefik.http.services.heimdall.loadbalancer.server.port=80
+volumes:
+  src:
+    driver_opts:
+      type: "nfs"
+      o: "addr=${NFS_HOST},nfsvers=4"
+      device: ":/docker/nginx/src"
+  templates:
+    driver_opts:
+      type: "nfs"
+      o: "addr=${NFS_HOST},nfsvers=4"
+      device: ":/docker/nginx/templates"
+
+networks:
+  traefik-public:
+    external: true
