@@ -38,6 +38,8 @@ services:
     ports:
       - 9090:9090
     command: --web.enable-lifecycle  --config.file=/etc/prometheus/prometheus.yml
+    links:
+      - consul-server
 
   node-exporter:
     image: prom/node-exporter
