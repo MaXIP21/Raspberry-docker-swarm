@@ -21,7 +21,7 @@ services:
           - traefik.http.routers.consuls.entrypoints=websecure
           - traefik.http.routers.consuls.tls=true
           - traefik.http.routers.consuls.tls.certresolver=leresolver
-          - traefik.http.services.portainer.loadbalancer.server.port=8500
+          - traefik.http.services.consul.loadbalancer.server.port=8500
     restart: always
     volumes:
      - /docker/consul/server:/consul
