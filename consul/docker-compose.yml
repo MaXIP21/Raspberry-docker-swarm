@@ -32,10 +32,10 @@ services:
           - node.hostname == ${NODE1}
     restart: always
     volumes:
-     - /docker/consul/client:/consul
+     - /docker/consul/client/config/client.json:/consul/config/client.json
     networks:
       - consul-bridge
-    command: ["agent", "-node_name=client-1"]
+    command: "agent"
  
    consul-client1:
     image: hashicorp/consul:latest
@@ -47,10 +47,10 @@ services:
           - node.hostname == ${NODE2}
     restart: always
     volumes:
-     - /docker/consul/client:/consul
+     - /docker/consul/client/config/client1.json:/consul/config/client.json
     networks:
       - consul-bridge
-    command: ["agent", "-node_name=client-2"]
+    command: "agent"
 
 #volumes:
 #  consul_nfs_server:
