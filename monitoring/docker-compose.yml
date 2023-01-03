@@ -13,9 +13,9 @@ services:
         constraints:
           - node.hostname == ${NODENAME}
     volumes:
-      - /docker/grafana/grafana.ini:/etc/grafana/grafana.ini
-      - /docker/grafana/provisioning/:/etc/grafana/provisioning
-      - /docker/grafana/dashboards/:/var/lib/grafana/dashboards
+      - /docker/monitoring/grafana/grafana.ini:/etc/grafana/grafana.ini
+      - /docker/monitoring/grafana/provisioning/:/etc/grafana/provisioning
+      - /docker/monitoring/grafana/dashboards/:/var/lib/grafana/dashboards
     networks:
       - bridge
     ports:
@@ -32,7 +32,7 @@ services:
         constraints:
           - node.hostname == ${NODENAME}
     volumes:
-      - /docker/prometheus/prometheus.yml:/etc/prometheus/prometheus.yml
+      - /docker/monitoring/prometheus/prometheus.yml:/etc/prometheus/prometheus.yml
     networks:
       - bridge
     ports:
