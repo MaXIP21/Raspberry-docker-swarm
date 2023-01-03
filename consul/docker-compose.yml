@@ -10,24 +10,24 @@ services:
       placement:
         constraints:
           - node.hostname == ${NODENAME}
-      labels:
-          - traefik.enable=true
-          - traefik.docker.network=traefik-public
-          - traefik.constraint-label=traefik-public
-          - traefik.http.routers.consul.rule=Host(`${DOMAIN?Variable not set}`)
-          - traefik.http.routers.consul.entrypoints=web
-          - traefik.http.routers.consul.middlewares=redirect-to-https
-          - traefik.http.routers.consuls.rule=Host(`${DOMAIN?Variable not set}`)
-          - traefik.http.routers.consuls.entrypoints=websecure
-          - traefik.http.routers.consuls.tls=true
-          - traefik.http.routers.consuls.tls.certresolver=leresolver
-          - traefik.http.services.consul.loadbalancer.server.port=8500
+      #labels:
+      #    - traefik.enable=true
+      #    - traefik.docker.network=traefik-public
+      #    - traefik.constraint-label=traefik-public
+      #    - traefik.http.routers.consul.rule=Host(`${DOMAIN?Variable not set}`)
+      #    - traefik.http.routers.consul.entrypoints=web
+      #    - traefik.http.routers.consul.middlewares=redirect-to-https
+      #    - traefik.http.routers.consuls.rule=Host(`${DOMAIN?Variable not set}`)
+      #    - traefik.http.routers.consuls.entrypoints=websecure
+      #    - traefik.http.routers.consuls.tls=true
+      #    - traefik.http.routers.consuls.tls.certresolver=leresolver
+      #    - traefik.http.services.consul.loadbalancer.server.port=8500
     restart: always
     volumes:
      - /docker/consul/server:/consul
     networks:
       - bridge
-      - traefik-public
+      #- traefik-public
     ports:
       - "8500:8500"
       - "8600:8600/tcp"
@@ -63,6 +63,6 @@ services:
       
 networks:
   bridge:
-  traefik-public:
-    external: true
+  #traefik-public:
+  #  external: true
   
