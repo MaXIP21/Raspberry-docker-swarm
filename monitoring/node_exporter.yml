@@ -2,12 +2,12 @@
 version: '3.8'
 services:
 
-  node-exporter${id}:
+  node-exporter:
     image: prom/node-exporter
     restart: always
     deploy:
       mode: replicated
-      replicas: 2
+      replicas: 1
       placement:
         constraints:
           - node.hostname == ${NODENAME}
