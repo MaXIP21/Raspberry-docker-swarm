@@ -66,6 +66,7 @@ services:
       
 networks:
   bridge:
+    external: true
   #traefik-public:
   #  external: true
   
