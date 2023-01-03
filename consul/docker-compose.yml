@@ -35,7 +35,7 @@ services:
      - /docker/consul/client:/consul
     networks:
       - consul-bridge
-    command: ["agent", "-node=${NODE1_NAME}"]
+    command: ["agent", "-node=client-1"]
  
    consul-client1:
     image: hashicorp/consul:latest
@@ -50,7 +50,7 @@ services:
      - /docker/consul/client:/consul
     networks:
       - consul-bridge
-    command: ["agent", "-node=${NODE2_NAME}"]
+    command: ["agent", "-node=client-2"]
 
 #volumes:
 #  consul_nfs_server:
