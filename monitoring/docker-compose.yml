@@ -20,6 +20,8 @@ services:
       - bridge
     ports:
       - "3000:3000"
+    links:
+      - prometheus
 
   prometheus:
     image: prom/prometheus:v2.26.0
@@ -40,6 +42,8 @@ services:
     command: --web.enable-lifecycle  --config.file=/etc/prometheus/prometheus.yml
     links:
       - consul-server
+      - grafana
+      - node-exporter
 
   node-exporter:
     image: prom/node-exporter
