@@ -12,7 +12,7 @@ services:
           - node.hostname == ${NODENAME}
     restart: always
     volumes:
-     - consul:/consul
+     - consul_nfs:/consul
     networks:
       - bridge
     ports:
@@ -31,13 +31,13 @@ services:
           - node.hostname == ${CLIENT_NODENAME}
     restart: always
     volumes:
-     - consul:/consul
+     - consul_nfs:/consul
     networks:
       - bridge
     command: "agent"
 
 volumes:
-  consul:
+  consul_nfs:
     driver_opts:
       type: "nfs"
       o: "addr=${NFS_HOST},nfsvers=4"
