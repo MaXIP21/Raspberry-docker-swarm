@@ -5,7 +5,7 @@ services:
   node-exporter:
     image: prom/node-exporter
     environment:
-      - NODE_ID={{NODE_ID}}
+      - NODE_ID=${NODE_ID}
     restart: always
     deploy:
       mode: replicated
