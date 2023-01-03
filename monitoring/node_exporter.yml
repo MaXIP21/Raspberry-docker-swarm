@@ -2,14 +2,15 @@
 version: '3.8'
 services:
 
-  node-exporter:
+  node-exporter${id}:
     image: prom/node-exporter
     restart: always
     deploy:
       mode: replicated
       replicas: 2
       placement:
-        max_replicas_per_node: 1
+        constraints:
+          - node.hostname == ${NODENAME}
     volumes:
       - /proc:/host/proc:ro
       - /sys:/host/sys:ro
