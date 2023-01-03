@@ -5,14 +5,39 @@ services:
   node-exporter:
     image: prom/node-exporter
     environment:
-      - NODE_ID=${NODE_ID}
+      - NODE_ID=master
     restart: always
     deploy:
       mode: replicated
       replicas: 1
       placement:
         constraints:
-          - node.hostname == ${NODENAME}
+          - node.hostname == portainer-pi3
+    volumes:
+      - /proc:/host/proc:ro
+      - /sys:/host/sys:ro
+      - /:/rootfs:ro
+    command: 
+      - '--path.procfs=/host/proc' 
+      - '--path.sysfs=/host/sys'
+      - --collector.filesystem.ignored-mount-points
+      - "^/(sys|proc|dev|host|etc|rootfs/var/lib/docker/containers|rootfs/var/lib/docker/overlay2|rootfs/run/docker/netns|rootfs/var/lib/docker/aufs)($$|/)"
+    networks:
+      - consul-bridge
+    ports:
+      - 9100:9100
+      
+  node-exporter-worker:
+    image: prom/node-exporter
+    environment:
+      - NODE_ID=worker
+    restart: always
+    deploy:
+      mode: replicated
+      replicas: 1
+      placement:
+        constraints:
+          - node.hostname == swarm-worker
     volumes:
       - /proc:/host/proc:ro
       - /sys:/host/sys:ro
