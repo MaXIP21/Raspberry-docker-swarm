@@ -4,7 +4,6 @@ services:
   
   consul-server:
     image: hashicorp/consul:1.10.0
-    container_name: consul-server
     deploy:
       mode: replicated
       replicas: 1
@@ -24,7 +23,6 @@ services:
 
   consul-client:
     image: hashicorp/consul:1.10.0
-    container_name: consul-client
     deploy:
       mode: replicated
       replicas: 1
