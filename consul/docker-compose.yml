@@ -4,8 +4,6 @@ services:
   
   consul-server:
     image: hashicorp/consul:1.10.0
-    container-name: consul-server
-    hostname: consul-server
     deploy:
       mode: replicated
       replicas: 1
