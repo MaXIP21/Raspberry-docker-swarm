@@ -37,7 +37,7 @@ services:
       - consul-bridge
     command: "agent"
  
-   consul-client1:
+  consul-client1:
     image: hashicorp/consul:latest
     deploy:
       mode: replicated
