@@ -50,7 +50,7 @@ services:
      - /docker/consul/client/config/client1.json:/consul/config/client.json
     networks:
       - consul-bridge
-    command: "agent"
+    command: [ "agent" "-node=master-1" ]
 
 #volumes:
 #  consul_nfs_server:
