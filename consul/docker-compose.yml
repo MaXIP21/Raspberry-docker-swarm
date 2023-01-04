@@ -35,7 +35,6 @@ services:
       - /docker/consul/client:/consul/config
     networks:
       - consul-bridge
-      - bridge
     command: ["agent", "-node=${NODE1}", "-config-file=/consul/config/${NODE1}.json"]
  
   consul-client1:
@@ -66,7 +65,5 @@ volumes:
       device: ":/docker/consul/client"
       
 networks:
-  bridge:
-     external: true
   consul-bridge:
      external: true
