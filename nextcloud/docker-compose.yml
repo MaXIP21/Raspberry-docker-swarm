@@ -21,8 +21,6 @@ services:
     
   mariadb-exporter:
     image: quay.io/prometheus/mysqld-exporter
-    command:
-     - -collect.info_schema.tablestats
     container_name: mysqld-exporter
     environment:
       - DATA_SOURCE_NAME='${MYSQL_USER}:${MYSQL_PW}@(mariadb:3306)/'
