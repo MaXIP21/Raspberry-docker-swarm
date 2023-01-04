@@ -2,7 +2,7 @@
 version: '3.8'
 services:
 
-  portainer-pi3:
+  portainer-pi3-exporter:
     image: prom/node-exporter
     environment:
       - NODE_ID=master
@@ -26,7 +26,7 @@ services:
       - consul-bridge
          
       
-  swarm-worker:
+  swarm-worker-exporter:
     image: prom/node-exporter
     environment:
       - NODE_ID=worker
