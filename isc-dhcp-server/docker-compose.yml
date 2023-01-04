@@ -11,7 +11,8 @@ services:
       - swarm=true
     privileged: true
     volumes:
-      - '/docker/dhcp:/data'
+      - '/docker/dhcp/dhcpd.conf:/etc/dhcp/dhcpd.conf'
+      - '/docker/dhcp/dhcpd.leases:/etc/dhcp/dhcpd.leases'
     networks:
       - outside
     deploy:
