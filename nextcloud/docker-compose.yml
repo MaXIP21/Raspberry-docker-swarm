@@ -30,6 +30,7 @@ services:
       - 9104:9104
     networks:
       - nextcloud_network
+      - consul-bridge
     depends_on:
       - mariadb
 
@@ -85,4 +86,6 @@ volumes:
 networks:
   nextcloud_network:
   traefik-public:
+    external: true
+  consul-bridge:
     external: true
