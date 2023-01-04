@@ -35,7 +35,7 @@ services:
      - /docker/consul/client:/consul
     networks:
       - consul-bridge
-    command: ["agent", "-node=${NODE1}"]
+    command: ["agent", "-node=${NODE1}", "-config-file=/consul/config/${NODE1}.json"]
  
   consul-client1:
     image: hashicorp/consul:latest
@@ -47,22 +47,22 @@ services:
           - node.hostname == ${NODE2}
     restart: always
     volumes:
-     - /docker/consul/client:/consul
+     - consul_nfs_client:/consul/config
     networks:
       - consul-bridge
-    command: ["agent", "-node=${NODE2}", ""-config-file=/consul/config/${NODE2}"]
+    command: ["agent", "-node=${NODE2}", "-config-file=/consul/config/${NODE2}.json"]
 
-#volumes:
-#  consul_nfs_server:
-#    driver_opts:
-#      type: "nfs"
-#      o: "addr=${NFS_HOST},nfsvers=4"
-#      device: ":/docker/consul/server"
-#  consul_nfs_client:
-#    driver_opts:
-#      type: "nfs"
-#      o: "addr=${NFS_HOST},nfsvers=4"
-#      device: ":/docker/consul/client"
+volumes:
+  consul_nfs_server:
+    driver_opts:
+      type: "nfs"
+      o: "addr=${NFS_HOST},nfsvers=4"
+      device: ":/docker/consul/server"
+  consul_nfs_client:
+    driver_opts:
+      type: "nfs"
+      o: "addr=${NFS_HOST},nfsvers=4"
+      device: ":/docker/consul/client"
       
 networks:
   consul-bridge:
