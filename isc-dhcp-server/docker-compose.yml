@@ -13,6 +13,7 @@ services:
     volumes:
       - '/docker/dhcp/dhcpd.conf:/etc/dhcp/dhcpd.conf'
       - '/docker/dhcp/dhcpd.leases:/etc/dhcp/dhcpd.leases'
+      - '/docker/dhcp/dhcpd.hosts:/etc/dhcp/dhcpd.hosts'
     networks:
       - outside
     deploy:
