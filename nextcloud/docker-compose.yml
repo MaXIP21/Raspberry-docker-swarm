@@ -18,6 +18,20 @@ services:
       - MYSQL_DATABASE=${MYSQL_DB}
       - MYSQL_USER=${MYSQL_USER}
     restart: unless-stopped
+    
+  mariadb-exporter:
+    image: quay.io/prometheus/mysqld-exporter
+    command:
+     - -collect.info_schema.tablestats
+    container_name: mysqld-exporter
+    environment:
+      - DATA_SOURCE_NAME=exporter:exporter@(mariadb:3306)/
+    ports:
+      - 9104:9104
+    networks:
+      - nextcloud_network
+    depends_on:
+      - mariadb
 
   nextcloud:
     image: nextcloud:latest
