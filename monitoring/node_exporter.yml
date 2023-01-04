@@ -23,7 +23,9 @@ services:
       - --collector.filesystem.ignored-mount-points
       - "^/(sys|proc|dev|host|etc|rootfs/var/lib/docker/containers|rootfs/var/lib/docker/overlay2|rootfs/run/docker/netns|rootfs/var/lib/docker/aufs)($$|/)"
     networks:
-      - consul-bridge
+      consul-bridge:
+        ipv4_address: 10.0.47.60
+         
       
   node-exporter-worker:
     image: prom/node-exporter
@@ -46,7 +48,8 @@ services:
       - --collector.filesystem.ignored-mount-points
       - "^/(sys|proc|dev|host|etc|rootfs/var/lib/docker/containers|rootfs/var/lib/docker/overlay2|rootfs/run/docker/netns|rootfs/var/lib/docker/aufs)($$|/)"
     networks:
-      - consul-bridge
+      consul-bridge:
+        ipv4_address: 10.0.47.61
 
 networks:
   consul-bridge:
