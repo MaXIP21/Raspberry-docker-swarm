@@ -9,6 +9,12 @@ services:
     container_name: nextcloud-mariadb
     networks:
       - nextcloud_network
+    deploy:
+      mode: replicated
+      replicas: 1
+      placement:
+        constraints:
+          - node.hostname == swarm-worker
     volumes:
       - db:/var/lib/mysql
       - /etc/localtime:/etc/localtime:ro
@@ -26,6 +32,12 @@ services:
       - DATA_SOURCE_NAME='${MYSQL_USER}:${MYSQL_PW}@(mariadb:3306)/'
     ports:
       - 9104:9104
+    deploy:
+      mode: replicated
+      replicas: 1
+      placement:
+        constraints:
+          - node.hostname == swarm-worker
     networks:
       - nextcloud_network
       - consul-bridge
