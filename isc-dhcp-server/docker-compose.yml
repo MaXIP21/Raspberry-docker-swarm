@@ -5,7 +5,7 @@ services:
     container_name: isc-dhcp-server
     restart: always
     environment:
-      - use_data_dir=true
+      - use_data_dir=false
       - data_dir=/data
       - IFACE=eth0
       - swarm=true
