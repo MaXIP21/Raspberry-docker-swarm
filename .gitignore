@@ -1,2 +1,3 @@
 foreman/Dockerfile
 foreman/test.txt
+nextcloud/init.sql
