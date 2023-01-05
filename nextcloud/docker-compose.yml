@@ -8,6 +8,7 @@ services:
       context: .
       dockerfile: dev.dockerfile
     command: --transaction-isolation=READ-COMMITTED --binlog-format=ROW --innodb-file-per-table=1 --skip-innodb-read-only-compressed
+    container_name: nextcloud-mariadb
     networks:
       - nextcloud_network
     deploy:
@@ -28,6 +29,7 @@ services:
     
   mariadb-exporter:
     image: quay.io/prometheus/mysqld-exporter
+    container_name: mysqld-exporter
     command: --collect.info_schema.tables
     environment:
       - DATA_SOURCE_NAME='${MYSQL_USER}:${MYSQL_PW}@(mariadb:3306)/'
