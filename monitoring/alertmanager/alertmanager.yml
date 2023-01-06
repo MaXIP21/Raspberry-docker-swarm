@@ -1,7 +1,7 @@
 global:
   resolve_timeout: 10m
   # Slack alerts
-  slack_api_url: 'https://hooks.slack.com/services/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'
+  slack_api_url: 'https://hooks.slack.com/services/'
 
 # Include templates
 templates:
