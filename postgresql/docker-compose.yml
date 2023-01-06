@@ -1,5 +1,6 @@
 ---
 version: '3.8'
+
 services:
   db:
     image: "postgres"
@@ -14,12 +15,13 @@ services:
       - postgres_data:/var/lib/postgresql/data
     networks:
      - "postgres"
-    deploy:
+    deploy:
       mode: replicated
       replicas: 1
       placement:
         constraints:
           - node.hostname == ${NODENAME}
+          
 networks:
   postgres:
     driver: "bridge"
