@@ -7,9 +7,9 @@ services:
     ports:
       - "5432:5432"
     environment:
-      POSTGRES_PASSWORD: "pass1234"
-      POSTGRES_USER: "dbuser"
-      POSTGRES_DB: "master"
+      POSTGRES_PASSWORD: "${PGPASS}"
+      POSTGRES_USER: "${PGUSER}"
+      POSTGRES_DB: "${PGDB}"
     volumes:
       - postgres_data:/var/lib/postgresql/data
     networks:
@@ -19,7 +19,7 @@ services:
       replicas: 1
       placement:
         constraints:
-          - node.hostname == swarm-worker
+          - node.hostname == ${NODENAME}
 networks:
   postgres:
     driver: "bridge"
