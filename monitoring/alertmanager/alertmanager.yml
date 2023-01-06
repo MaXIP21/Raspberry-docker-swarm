@@ -1,0 +1,44 @@
+global:
+  resolve_timeout: 10m
+  # Slack alerts
+  slack_api_url: 'https://hooks.slack.com/services/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'
+
+# Include templates
+templates:
+- /etc/alertmanager/templates.d/*.tmpl
+
+route:
+  group_by: ['alertgroup','alertname','server','severity']
+  group_wait: 30s
+  group_interval: 5m
+  repeat_interval: 1h
+  receiver: 'slack-notifications'
+  routes:
+  - receiver: blackhole
+    matchers:
+    - alertname =~ (QuietHours)
+    - severity = warning
+  - receiver: handler
+    matchers:
+    - server =~ .+
+    continue: true
+  - receiver: slack
+    continue: true
+    group_wait: 1m
+
+receivers:
+  - name: 'slack-notifications'
+    slack_configs:
+    - channel: '#alerting'
+      send_resolved: true
+
+inhibit_rules:
+- source_matchers:
+  - alertname = QuietHoursBudapest
+  target_matchers:
+  - quiethours = budapest
+- source_match:
+    severity: 'critical'
+  target_match:
+    severity: 'warning'
+  equal: ['alertname', 'dev', 'instance']
