@@ -22,7 +22,7 @@ route:
     matchers:
     - server =~ .+
     continue: true
-  - receiver: slack
+  - receiver: slack-notifications
     continue: true
     group_wait: 1m
 
