@@ -24,6 +24,7 @@ services:
   prometheus:
     image: prom/prometheus:v2.26.0
     container_name: prometheus
+    user: ${USER_UID}
     restart: always
     deploy:
       mode: replicated
