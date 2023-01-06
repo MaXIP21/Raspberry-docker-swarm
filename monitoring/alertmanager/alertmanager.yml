@@ -31,6 +31,8 @@ receivers:
     slack_configs:
     - channel: '#alerting'
       send_resolved: true
+  - name: 'blackhole'
+  - name: 'handler'
 
 inhibit_rules:
 - source_matchers:
