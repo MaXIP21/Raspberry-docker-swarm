@@ -63,6 +63,24 @@ services:
           - node.hostname == ${NODENAME}
     networks:
       - consul-bridge
+  karma:
+    image: ghcr.io/prymitive/karma:latest
+    ports:
+      - 8090:80
+    environment:
+      - "ALERTMANAGER_URI=alermanager"
+    volumes:
+      - /docker/monitoring/alertmanager/:/etc/alertmanager/
+    restart: always
+    deploy:
+      mode: replicated
+      replicas: 1
+      placement:
+        constraints:
+          - node.hostname == ${NODENAME}
+    networks:
+      - consul-bridge
+      
 networks:
   consul-bridge:
     external: true
