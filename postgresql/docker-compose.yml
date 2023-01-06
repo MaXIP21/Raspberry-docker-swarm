@@ -1,0 +1,23 @@
+version: '3'
+services:
+  db:
+    image: "postgres"
+    restart: "always"
+    container_name: "postgresql"
+    ports:
+      - "5432:5432"
+    environment:
+      POSTGRES_PASSWORD: "pass1234"
+      POSTGRES_USER: "dbuser"
+      POSTGRES_DB: "master"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    networks:
+     - "postgres"
+    
+networks:
+  postgres:
+    driver: "bridge"
+
+volumes:
+  postgres_data:
