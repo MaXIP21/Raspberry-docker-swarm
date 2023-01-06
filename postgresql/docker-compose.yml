@@ -14,7 +14,7 @@ services:
     volumes:
       - postgres_data:/var/lib/postgresql/data
     networks:
-     - "postgres"
+     - consul-bridge
     deploy:
       mode: replicated
       replicas: 1
@@ -23,8 +23,6 @@ services:
           - node.hostname == ${NODENAME}
           
 networks:
-  postgres:
-    driver: "bridge"
   consul-bridge:
     external: true
     
