@@ -33,7 +33,7 @@ services:
           - node.hostname == ${NODENAME}
     volumes:
       - /docker/monitoring/prometheus/prometheus.yml:/etc/prometheus/prometheus.yml
-      - prometheus_data/:/prometheus/data
+      - prometheus_data:/prometheus/data
     networks:
       - consul-bridge
     ports:
@@ -43,6 +43,7 @@ services:
 networks:
   consul-bridge:
     external: true
+    
 volumes:
   prometheus_data:
     driver_opts:
