@@ -53,7 +53,7 @@ services:
       placement:
         constraints:
           - node.labels.type != primary
-          - node.role == worker
+          - node.role == master
 networks:
   crunchynet:
 
