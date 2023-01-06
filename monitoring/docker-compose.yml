@@ -78,7 +78,7 @@ services:
       placement:
         constraints:
           - node.hostname == ${NODENAME}
-            labels:
+      labels:
           - traefik.enable=true
           - traefik.docker.network=traefik-public
           - traefik.constraint-label=traefik-public
