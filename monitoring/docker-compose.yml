@@ -52,8 +52,8 @@ services:
       - /docker/monitoring/alertmanager/:/etc/alertmanager/
     restart: always
     command:
-      - '-config.file=/etc/alertmanager/config.yml'
-      - '-storage.path=/alertmanager'
+      --config.file=/etc/alertmanager/alertmanager.yml
+      --storage.path=/alertmanager
     deploy:
       mode: replicated
       replicas: 1
