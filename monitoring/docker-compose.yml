@@ -36,7 +36,7 @@ services:
         constraints:
           - node.hostname == ${NODENAME}
     volumes:
-      - /docker/monitoring/prometheus/alert.rules:/etc/prometheus/alert.rules
+      - /docker/monitoring/prometheus/rules.d:/etc/prometheus/rules.d
       - /docker/monitoring/prometheus/prometheus.yml:/etc/prometheus/prometheus.yml
       - /docker/prometheus_data:/prometheus/data
     networks:
