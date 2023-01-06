@@ -49,7 +49,7 @@ services:
     ports:
       - 9093:9093
     volumes:
-      - /docker/alertmanager/:/etc/alertmanager/
+      - /docker/monitoring/alertmanager/:/etc/alertmanager/
     restart: always
     command:
       - '-config.file=/etc/alertmanager/config.yml'
