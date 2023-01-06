@@ -1,9 +1,9 @@
-version: '3'
+---
+version: '3.8'
 services:
   db:
     image: "postgres"
     restart: "always"
-    container_name: "postgresql"
     ports:
       - "5432:5432"
     environment:
@@ -14,10 +14,21 @@ services:
       - postgres_data:/var/lib/postgresql/data
     networks:
      - "postgres"
-    
+    deploy:
+      mode: replicated
+      replicas: 1
+      placement:
+        constraints:
+          - node.hostname == swarm-worker
 networks:
   postgres:
     driver: "bridge"
-
+  consul-bridge:
+    external: true
+    
 volumes:
   postgres_data:
+    driver_opts:
+      type: "nfs"
+      o: "addr=${NFS_HOST},nfsvers=4"
+      device: ":/docker/postgres_data"
