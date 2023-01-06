@@ -82,10 +82,10 @@ services:
           - traefik.enable=true
           - traefik.docker.network=traefik-public
           - traefik.constraint-label=traefik-public
-          - traefik.http.routers.karma-http.rule=Host(`${DOMAIN?Variable not set}`)
+          - traefik.http.routers.karma-http.rule=Host(`${KARMA_DOMAIN?Variable not set}`)
           - traefik.http.routers.karma-http.entrypoints=web
           - traefik.http.routers.karma-http.middlewares=redirect-to-https
-          - traefik.http.routers.karma-https.rule=Host(`${DOMAIN?Variable not set}`)
+          - traefik.http.routers.karma-https.rule=Host(`${KARMA_DOMAIN?Variable not set}`)
           - traefik.http.routers.karma-https.entrypoints=websecure
           - traefik.http.routers.karma-https.tls=true
           - traefik.http.routers.karma-https.tls.certresolver=leresolver
