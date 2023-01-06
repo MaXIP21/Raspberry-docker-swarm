@@ -68,9 +68,9 @@ services:
     ports:
       - 8090:8080
     environment:
-      - ALERTMANAGER_URI=${ALERT_URI}
+      - CONFIG_FILE=/config.yml
     volumes:
-      - /docker/monitoring/alertmanager/:/etc/alertmanager/
+      - /docker/monitoring/karma/config.yml:/config.yml
     restart: always
     deploy:
       mode: replicated
