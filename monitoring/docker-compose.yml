@@ -6,6 +6,9 @@ services:
     image: grafana/grafana:7.5.3
     container_name: grafana
     restart: always
+    environment:
+      - "GF_SECURITY_ADMIN_USER=${ADMIN_USER}"
+      - "GF_SECURITY_ADMIN_PASSWORD=${ADMIN_PW}"
     deploy:
       mode: replicated
       replicas: 1
