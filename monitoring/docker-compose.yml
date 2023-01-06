@@ -49,4 +49,4 @@ volumes:
     driver_opts:
       type: "nfs"
       o: "addr=${NFS_HOST},nfsvers=4"
-      device: ":/docker/monitoring/prometheus/data"
+      device: "/docker/prometheus_data"
