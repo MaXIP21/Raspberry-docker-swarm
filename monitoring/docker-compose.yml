@@ -89,7 +89,7 @@ services:
           - traefik.http.routers.karma-https.entrypoints=websecure
           - traefik.http.routers.karma-https.tls=true
           - traefik.http.routers.karma-https.tls.certresolver=leresolver
-          - traefik.http.services.karma.loadbalancer.server.port=9000
+          - traefik.http.services.karma.loadbalancer.server.port=8080
     networks:
       - consul-bridge
       
