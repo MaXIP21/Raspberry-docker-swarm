@@ -3,7 +3,7 @@ version: '3.7'
 services:
 
   grafana:
-    image: grafana/grafana:7.5.3
+    image: grafana/grafana:latest
     container_name: grafana
     restart: always
     environment:
@@ -25,7 +25,7 @@ services:
       - "3000:3000"
 
   prometheus:
-    image: prom/prometheus:v2.26.0
+    image: prom/prometheus:latest
     container_name: prometheus
     user: ${USER_UID}
     restart: always
@@ -43,7 +43,25 @@ services:
     ports:
       - 9090:9090
     command: --web.enable-lifecycle  --config.file=/etc/prometheus/prometheus.yml
-
+  
+  alertmanager:
+    image: prom/alertmanager:latest
+    ports:
+      - 9093:9093
+    volumes:
+      - /docker/alertmanager/:/etc/alertmanager/
+    restart: always
+    command:
+      - '-config.file=/etc/alertmanager/config.yml'
+      - '-storage.path=/alertmanager'
+    deploy:
+      mode: replicated
+      replicas: 1
+      placement:
+        constraints:
+          - node.hostname == ${NODENAME}
+    networks:
+      - consul-bridge
 networks:
   consul-bridge:
     external: true
