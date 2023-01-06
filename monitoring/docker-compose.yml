@@ -68,7 +68,7 @@ services:
     ports:
       - 8090:80
     environment:
-      - "ALERTMANAGER_URI=alertmanager"
+      - "ALERTMANAGER_URI=http://alertmanager"
     volumes:
       - /docker/monitoring/alertmanager/:/etc/alertmanager/
     restart: always
