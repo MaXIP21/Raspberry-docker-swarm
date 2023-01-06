@@ -1,0 +1,22 @@
+groups:
+- name: Common
+  rules:
+  - record: is_european_summer_time
+    expr: |
+      (vector(1) and (month() > 3 and month() < 10)) or
+      (vector(1) and (month() == 3 and (day_of_month() - day_of_week()) >=25) and absent((day_of_month() >= 25) and (day_of_week() ==0))) or
+      (vector(1) and (month() == 10 and (day_of_month() - day_of_week()) < 25) and absent((day_of_month() >= 25) and (day_of_week() ==0))) or
+      (vector(1) and ((month() == 10 and hour() <1 ) or (month() == 3 and hour() > 0)) and ((day_of_month() >= 25) and (day_of_week() ==0 ))) or
+      vector(0)
+  - record: europe_budapest_time
+    expr: time() + 3600 * (1 + is_european_summer_time)
+  - record: europe_budapest_hour
+    expr: hour(europe_budapest_time)
+  - alert: QuietHoursBudapest
+    expr: day_of_week() == 6 or day_of_week() == 0 or europe_budapest_hour > 22 or europe_budapest_hour <=7
+    for: 1m
+    labels:
+      severity: warning
+    annotations:
+      description: "This alert fires during Budapest quiet hours (Out of Business hours) and weekends"
+      current_value: "{{ $value }}"
