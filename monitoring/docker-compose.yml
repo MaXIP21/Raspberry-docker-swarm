@@ -15,6 +15,18 @@ services:
       placement:
         constraints:
           - node.hostname == ${NODENAME}
+      labels:
+          - traefik.enable=true
+          - traefik.docker.network=traefik-public
+          - traefik.constraint-label=traefik-public
+          - traefik.http.routers.grafana-http.rule=Host(`${GRAFANA_DOMAIN?Variable not set}`)
+          - traefik.http.routers.kagrafanarma-http.entrypoints=web
+          - traefik.http.routers.grafana-http.middlewares=redirect-to-https
+          - traefik.http.routers.grafana-https.rule=Host(`${GRAFANA_DOMAIN?Variable not set}`)
+          - traefik.http.routers.grafana-https.entrypoints=websecure
+          - traefik.http.routers.grafana-https.tls=true
+          - traefik.http.routers.grafana-https.tls.certresolver=leresolver
+          - traefik.http.services.grafana.loadbalancer.server.port=3000
     volumes:
       - /docker/monitoring/grafana/grafana.ini:/etc/grafana/grafana.ini
       - /docker/monitoring/grafana/provisioning/:/etc/grafana/provisioning
