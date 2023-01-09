@@ -78,4 +78,6 @@ volumes:
       
 networks:
   consul-bridge:
-     external: true
+    external: true
+  traefik-public:
+    external: true
