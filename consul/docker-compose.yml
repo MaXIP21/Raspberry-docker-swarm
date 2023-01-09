@@ -27,7 +27,7 @@ services:
      - /docker/consul/server:/consul
     networks:
       - consul-bridge
-      #- traefik-public
+      - traefik-public
     ports:
       - "8500:8500"
       - "8600:8600/tcp"
