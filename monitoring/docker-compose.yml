@@ -53,6 +53,7 @@ services:
       - /docker/prometheus_data:/prometheus/data
     networks:
       - consul-bridge
+      - traefik-public
     ports:
       - 9090:9090
     command: --web.enable-lifecycle  --config.file=/etc/prometheus/prometheus.yml
