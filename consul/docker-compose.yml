@@ -10,6 +10,18 @@ services:
       placement:
         constraints:
           - node.hostname == ${NODENAME}
+      labels:
+          - traefik.enable=true
+          - traefik.http.routers.consul-http.rule=Host(`${CONSUL_DOMAIN?Variable not set}`)
+          - traefik.http.routers.consul-http.entrypoints=web
+          - traefik.http.routers.consul-http.middlewares=redirect-to-https
+          - traefik.http.routers.consul-https.rule=Host(`${CONSUL_DOMAIN?Variable not set}`)
+          - traefik.http.routers.consul-https.entrypoints=websecure
+          - traefik.http.routers.consul-https.middlewares=authconsul
+          - traefik.http.middlewares.authconsul.basicauth.users=${USERNAME?Variable not set}:${HASHED_PASSWORD?Variable not set}
+          - traefik.http.routers.consul-https.tls=true
+          - traefik.http.routers.consul-https.tls.certresolver=leresolver
+          - traefik.http.services.consul.loadbalancer.server.port=8500
     restart: always
     volumes:
      - /docker/consul/server:/consul
