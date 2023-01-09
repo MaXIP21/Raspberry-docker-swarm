@@ -33,6 +33,7 @@ services:
       - /docker/monitoring/grafana/dashboards/:/var/lib/grafana/dashboards
     networks:
       - consul-bridge
+      - traefik-public
     ports:
       - "3000:3000"
 
@@ -53,7 +54,7 @@ services:
       - /docker/prometheus_data:/prometheus/data
     networks:
       - consul-bridge
-      - traefik-public
+
     ports:
       - 9090:9090
     command: --web.enable-lifecycle  --config.file=/etc/prometheus/prometheus.yml
