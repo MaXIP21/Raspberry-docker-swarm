@@ -28,6 +28,10 @@ services:
       - /lib/modules:/lib/modules #optional
     ports:
       - 51820:51820/udp
+    deploy:
+      placement:
+        constraints:
+          - node.role == worker
 
 networks:
   outside:
