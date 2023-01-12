@@ -7,6 +7,9 @@ services:
     cap_add:
       - NET_ADMIN
       - SYS_MODULE
+    networks:
+      - outside
+      - bridge
     environment:
       - PUID=1000
       - PGID=1000
@@ -25,3 +28,10 @@ services:
       - /lib/modules:/lib/modules #optional
     ports:
       - 51820:51820/udp
+
+networks:
+  outside:
+    external:
+      name: "host"
+  bridge:
+    external: true
