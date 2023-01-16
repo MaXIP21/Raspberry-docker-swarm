@@ -1,8 +1,8 @@
 groups:
-- name: Raspberry Cluster
+- name: Raspberry Cluster Prod Alerts
   rules:
 
-  - alert: service_down
+  - alert: ServiceDown
     expr: up == 0
     for: 5m
     labels:
@@ -12,8 +12,8 @@ groups:
       summary: "Instance {{ $labels.instance }} down"
       description: "{{ $labels.instance }} of job {{ $labels.job }} has been down for more than 30 seconds."
 
-  - alert: medium_load
-    expr: node_load1 > 1.5
+  - alert: ServerMediumLoad
+    expr: node_load1 > 2
     for: 10m
     labels:
       severity: warning
@@ -22,7 +22,7 @@ groups:
       summary: "Instance {{ $labels.instance }} running on server {{ $labels._hostname }} under medium load"
       description: "The Server: {{ $labels._hostname }}'s exporter named {{ $labels.job }} is under medium load."
 
-  - alert: high_load
+  - alert: ServerHighLoad
     expr: node_load1 > 3.0
     for: 30m
     labels:
@@ -32,7 +32,7 @@ groups:
       summary: "Instance {{ $labels.instance }} running on server {{ $labels._hostname }} under high load"
       description: "The Server: {{ $labels.instance }}'s exporter named {{ $labels.job }} is under high load."
 
-  - alert: site_down
+  - alert: SiteDown
     expr: probe_success < 1
     for: 30s
     labels:
@@ -52,6 +52,42 @@ groups:
       summary: Host out of disk space (instance {{ $labels.instance }})
       description: "Disk is almost full (< 10% left)\n  VALUE = {{ $value }}\n  LABELS = {{ $labels }}"
 
+  - alert: HostDiskWillFillIn24Hours
+    expr: (node_filesystem_avail_bytes * 100) / node_filesystem_size_bytes < 10 and ON (instance, device, mountpoint) predict_linear(node_filesystem_avail_bytes{fstype!~"tmpfs"}[1h], 24 * 3600) < 0 and ON (instance, device, mountpoint) node_filesystem_readonly == 0
+    for: 2m
+    labels:
+      severity: warning
+    annotations:
+      summary: Host disk will fill in 24 hours (instance {{ $labels.instance }})
+      description: Filesystem is predicted to run out of space within the next 24 hours at current write rate\n  VALUE = {{ $value }}
+
+  - alert: HostOutOfInodes
+    expr: node_filesystem_files_free{mountpoint ="/rootfs"} / node_filesystem_files{mountpoint="/rootfs"} * 100 < 10 and ON (instance, device, mountpoint) node_filesystem_readonly{mountpoint="/rootfs"} == 0
+    for: 2m
+    labels:
+      severity: warning
+    annotations:
+      summary: Host out of inodes (instance {{ $labels.instance }})
+      description: Disk is almost running out of available inodes (< 10% left)\n  VALUE = {{ $value }}
+
+  - alert: HostInodesWillFillIn24Hours
+    expr: node_filesystem_files_free{mountpoint ="/rootfs"} / node_filesystem_files{mountpoint="/rootfs"} * 100 < 10 and predict_linear(node_filesystem_files_free{mountpoint="/rootfs"}[1h], 24 * 3600) < 0 and ON (instance, device, mountpoint) node_filesystem_readonly{mountpoint="/rootfs"} == 0
+    for: 2m
+    labels:
+      severity: warning
+    annotations:
+      summary: Host inodes will fill in 24 hours (instance {{ $labels.instance }})
+      description: Filesystem is predicted to run out of inodes within the next 24 hours at current write rate\n  VALUE = {{ $value }}
+
+  - alert: HostSwapIsFillingUp
+    expr: (1 - (node_memory_SwapFree_bytes / node_memory_SwapTotal_bytes)) * 100 > 80
+    for: 2m
+    labels:
+      severity: warning
+    annotations:
+      summary: Host swap is filling up (instance {{ $labels.instance }})
+      description: Swap is filling up (>80%)\n  VALUE = {{ $value }}
+
   - alert: HostOutOfMemory
     expr: node_memory_MemAvailable_bytes / node_memory_MemTotal_bytes * 100 < 10
     for: 2m
@@ -61,3 +97,48 @@ groups:
     annotations:
       summary: Host out of memory (instance {{ $labels.instance }})
       description: "Node memory is filling up (< 10% left)\n  VALUE = {{ $value }}\n  LABELS = {{ $labels }}"
+
+  - alert: HostMemoryUnderMemoryPressure
+    expr: rate(node_vmstat_pgmajfault[1m]) > 1000
+    for: 2m
+    labels:
+      severity: warning
+    annotations:
+      summary: Host memory under memory pressure (instance {{ $labels.instance }})
+      description: The node is under heavy memory pressure. High rate of major page faults\n  VALUE = {{ $value }}
+
+  - alert: HostOomKillDetected
+    expr: increase(node_vmstat_oom_kill[1m]) > 0
+    for: 0m
+    labels:
+      severity: warning
+    annotations:
+      summary: Host OOM kill detected (instance {{ $labels.instance }})
+      description: OOM kill detected\n  VALUE = {{ $value }}
+
+  - alert: HostSystemdServiceCrashed
+    expr: node_systemd_unit_state{state="failed"} == 1
+    for: 0m
+    labels:
+      severity: warning
+    annotations:
+      summary: Host SystemD service crashed (instance {{ $labels.instance }})
+      description: SystemD service crashed\n  VALUE = {{ $value }}
+
+  - alert: HostPhysicalComponentTooHot
+    expr: node_hwmon_temp_celsius > 75
+    for: 5m
+    labels:
+      severity: warning
+    annotations:
+      summary: Host physical component too hot (instance {{ $labels.instance }})
+      description: Physical hardware component too hot\n  VALUE = {{ $value }}
+
+  - alert: HostNodeOvertemperatureAlarm
+    expr: node_hwmon_temp_crit_alarm_celsius == 1
+    for: 0m
+    labels:
+      severity: critical
+    annotations:
+      summary: Host node overtemperature alarm (instance {{ $labels.instance }})
+      description: Physical node temperature alarm triggered\n  VALUE = {{ $value }}
