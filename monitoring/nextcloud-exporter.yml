@@ -5,6 +5,11 @@ services:
   nextcloud-exporter:
     image: ghcr.io/xperimental/nextcloud-exporter
     restart: always
+    environment:
+      NEXTCLOUD_SERVER: ${NEXTCLOUD_SERVER}
+      NEXTCLOUD_USERNAME: ${NEXTCLOUD_USERNAME}
+      NEXTCLOUD_PASSWORD: ${NEXTCLOUD_PASSWORD}
+      NEXTCLOUD_TLS_SKIP_VERIFY: ${NEXTCLOUD_TLS_SKIP_VERIFY}
     ports:
       - 9205:9205
     deploy:
