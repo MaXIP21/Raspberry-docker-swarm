@@ -11,7 +11,7 @@ services:
       placement:
         constraints:
           - node.hostname == swarm-worker
-    command: -s http://nextcloud.peterbacsai.com --username ${username} --password ${password} --tls-skip-verify
+    command: -s http://${URL} --username ${USERNAME} --password ${PASSWORD} --tls-skip-verify
     networks:
       - consul-bridge
 networks:
