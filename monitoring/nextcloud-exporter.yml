@@ -11,11 +11,10 @@ services:
       placement:
         constraints:
           - node.hostname == swarm-worker
+    volumes:
+      - /docker/monitoring/nextcloud-exporter-config.yaml:/nextcloud-exporter-config.yaml
     command: 
-      - '--server ${SERVER_URL}'
-      - '--username ${USERNAME}'
-      - '--password ${PASSWORD}'
-      - '--tls-skip-verify' 
+      - '-c /nextcloud-exporter-config.yaml'
     networks:
       - consul-bridge
 networks:
