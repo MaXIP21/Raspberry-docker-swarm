@@ -13,8 +13,7 @@ services:
           - node.hostname == swarm-worker
     volumes:
       - /docker/monitoring/nextcloud-exporter-config.yaml:/home/nextcloud-exporter-config.yaml
-    command: 
-      - '-c /home/nextcloud-exporter-config.yaml'
+    command: [ '-s http://nextcloud.peterbacsai.com --username pbacsai --password ${password} --tls-skip-verify']
     networks:
       - consul-bridge
 networks:
