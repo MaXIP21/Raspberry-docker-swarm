@@ -13,7 +13,9 @@ services:
           - node.hostname == swarm-worker
     command: 
       - '--server ${SERVER_URL}'
-      - '--auth-token ${AUTH_TOKEN}'
+      #- '--auth-token ${AUTH_TOKEN}'
+      - '-u ${USERNAME}'
+      - '-p ${PASSWORD}'
       - '--tls-skip-verify' 
    networks:
       - consul-bridge
