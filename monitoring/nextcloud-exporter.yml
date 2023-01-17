@@ -16,7 +16,7 @@ services:
       - '--user ${USERNAME}'
       - '--password ${PASSWORD}'
       - '--tls-skip-verify' 
-   networks:
+    networks:
       - consul-bridge
 networks:
   consul-bridge:
