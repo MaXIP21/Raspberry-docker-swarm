@@ -5,6 +5,8 @@ services:
   nextcloud-exporter:
     image: ghcr.io/xperimental/nextcloud-exporter
     restart: always
+    ports:
+      - 9205:9205
     deploy:
       mode: replicated
       replicas: 1
