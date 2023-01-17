@@ -12,9 +12,9 @@ services:
         constraints:
           - node.hostname == swarm-worker
     volumes:
-      - /docker/monitoring/nextcloud-exporter-config.yaml:/nextcloud-exporter-config.yaml
+      - /docker/monitoring/nextcloud-exporter-config.yaml:/tmp/nextcloud-exporter-config.yaml
     command: 
-      - '-c /nextcloud-exporter-config.yaml'
+      - '-c /tmp/nextcloud-exporter-config.yaml'
     networks:
       - consul-bridge
 networks:
