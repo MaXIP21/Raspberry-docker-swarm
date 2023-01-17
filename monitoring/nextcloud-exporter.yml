@@ -13,7 +13,7 @@ services:
           - node.hostname == swarm-worker
     command: 
       - '--server ${SERVER_URL}'
-      - '--user ${USERNAME}'
+      - '--username ${USERNAME}'
       - '--password ${PASSWORD}'
       - '--tls-skip-verify' 
     networks:
