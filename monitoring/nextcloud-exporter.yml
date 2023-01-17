@@ -1,0 +1,19 @@
+---
+version: '3.8'
+services:
+
+  nextcloud-exporter:
+    image: ghcr.io/xperimental/nextcloud-exporter
+    restart: always
+    deploy:
+      mode: replicated
+      replicas: 1
+      placement:
+        constraints:
+          - node.hostname == swarm-worker
+    command: 
+      - '--server ${SERVER_URL}'
+      - '--auth-token ${AUTH_TOKEN}'
+      - '--tls-skip-verify' 
+   networks:
+      - consul-bridge
