@@ -13,8 +13,8 @@ services:
           - node.hostname == swarm-worker
     command: 
       - '--server ${SERVER_URL}'
-      - '-u ${USERNAME}'
-      - '-p ${PASSWORD}'
+      - '--user ${USERNAME}'
+      - '--password ${PASSWORD}'
       - '--tls-skip-verify' 
    networks:
       - consul-bridge
