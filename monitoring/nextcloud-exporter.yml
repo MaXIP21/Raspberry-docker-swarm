@@ -13,7 +13,6 @@ services:
       placement:
         constraints:
           - node.hostname == swarm-worker
-    command: -s https://${URL} --username ${USERNAME} --password ${PASSWORD} --tls-skip-verify
     networks:
       - consul-bridge
 networks:
