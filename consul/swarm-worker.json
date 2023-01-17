@@ -1,0 +1,40 @@
+{
+    "datacenter": "piswarm",
+    "node_name": "master",
+    "data_dir": "/consul/data",
+    "retry_join":[
+        "consul-server"
+     ],
+    "bind_addr":"{{ GetInterfaceIP \"eth0\" }}",
+    "Services": [
+        {
+        
+            "Address": "swarm-worker-exporter",
+            "ID": "swarm-worker-s0",
+            "name": "node-exporter",
+            "Port": 9100,
+            "Tags": [
+            "_app=docker",
+            "_service=node-exporter",
+            "_hostname=swarm-worker",
+            "_environment=dev",
+            "_cluster=piswarm",
+            "_es_role=worker"
+            ]
+        },
+        {
+            "Address": "nextcloud-exporter",
+            "ID": "swarm-worker-s1",
+            "name": "nextcloud-exporter",
+            "Port": 9205,
+            "Tags": [
+            "_app=docker",
+            "_service=nextcloud-exporter",
+            "_hostname=swarm-worker",
+            "_environment=dev",
+            "_cluster=piswarm",
+            "_es_role=worker"
+            ]
+        }
+    ]  
+}
