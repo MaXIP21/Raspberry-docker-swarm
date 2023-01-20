@@ -20,7 +20,7 @@ services:
           - traefik.docker.network=traefik-public
           - traefik.constraint-label=traefik-public
           - traefik.http.routers.grafana-http.rule=Host(`${GRAFANA_DOMAIN?Variable not set}`)
-          - traefik.http.routers.kagrafanarma-http.entrypoints=web
+          - traefik.http.routers.grafana-http.entrypoints=web
           - traefik.http.routers.grafana-http.middlewares=redirect-to-https
           - traefik.http.routers.grafana-https.rule=Host(`${GRAFANA_DOMAIN?Variable not set}`)
           - traefik.http.routers.grafana-https.entrypoints=websecure
