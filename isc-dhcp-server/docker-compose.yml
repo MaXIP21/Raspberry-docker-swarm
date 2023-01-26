@@ -4,6 +4,7 @@ services:
     image: isc-dhcp-server:latest
     container_name: isc-dhcp-server
     restart: always
+    network_mode: "host"
     environment:
       - use_data_dir=true
       - data_dir=/data
@@ -14,8 +15,6 @@ services:
       - '/docker/isc-dhcp-ha/dhcpd-master.conf:/data/dhcpd.conf'
       #- '/docker/dhcp/dhcpd.leases:/etc/dhcp/dhcpd.leases'
       #- '/docker/dhcp/dhcpd.hosts:/etc/dhcp/dhcpd.hosts'
-    networks:
-      - outside
     deploy:
       mode: replicated
       replicas: 1
@@ -24,6 +23,7 @@ services:
           - node.hostname == ${PRIMARY_NODE}
   isc-dhcp-server-secondary:
     image: isc-dhcp-server:latest
+    network_mode: "host"
     container_name: isc-dhcp-server
     restart: always
     environment:
@@ -34,10 +34,6 @@ services:
     privileged: true
     volumes:
       - '/docker/isc-dhcp-ha/dhcpd-worker.conf:/data/dhcpd.conf'
-      #- '/docker/isc-dhcp-ha/dhcpd.leases:/etc/dhcp/dhcpd.leases'
-      #- '/docker/isc-dhcp-ha/dhcpd.hosts:/etc/dhcp/dhcpd.hosts'
-    networks:
-      - outside
     deploy:
       mode: replicated
       replicas: 1
