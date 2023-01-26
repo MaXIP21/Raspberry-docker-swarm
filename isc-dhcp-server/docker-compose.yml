@@ -5,15 +5,15 @@ services:
     container_name: isc-dhcp-server
     restart: always
     environment:
-      - use_data_dir=false
+      - use_data_dir=true
       - data_dir=/data
       - IFACE=eth0
       - swarm=true
     privileged: true
     volumes:
-      - '/docker/dhcp/dhcpd-master.conf:/etc/dhcp/dhcpd.conf'
-      - '/docker/dhcp/dhcpd.leases:/etc/dhcp/dhcpd.leases'
-      - '/docker/dhcp/dhcpd.hosts:/etc/dhcp/dhcpd.hosts'
+      - '/docker/isc-dhcp-ha/dhcpd-master.conf:/data/dhcpd.conf'
+      #- '/docker/dhcp/dhcpd.leases:/etc/dhcp/dhcpd.leases'
+      #- '/docker/dhcp/dhcpd.hosts:/etc/dhcp/dhcpd.hosts'
     networks:
       - outside
     deploy:
@@ -33,7 +33,7 @@ services:
       - swarm=true
     privileged: true
     volumes:
-      - '/docker/isc-dhcp-ha:/data'
+      - '/docker/isc-dhcp-ha/dhcpd-worker.conf:/data/dhcpd-worker.conf'
       #- '/docker/isc-dhcp-ha/dhcpd.leases:/etc/dhcp/dhcpd.leases'
       #- '/docker/isc-dhcp-ha/dhcpd.hosts:/etc/dhcp/dhcpd.hosts'
     networks:
