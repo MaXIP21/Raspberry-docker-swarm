@@ -1,6 +1,6 @@
 version: '3.4'
 services:
-  isc-dhcp-server:
+  isc-dhcp-server-primary:
     image: isc-dhcp-server:latest
     container_name: isc-dhcp-server
     restart: always
@@ -11,7 +11,7 @@ services:
       - swarm=true
     privileged: true
     volumes:
-      - '/docker/dhcp/dhcpd.conf:/etc/dhcp/dhcpd.conf'
+      - '/docker/dhcp/dhcpd-master.conf:/etc/dhcp/dhcpd.conf'
       - '/docker/dhcp/dhcpd.leases:/etc/dhcp/dhcpd.leases'
       - '/docker/dhcp/dhcpd.hosts:/etc/dhcp/dhcpd.hosts'
     networks:
@@ -19,6 +19,31 @@ services:
     deploy:
       mode: replicated
       replicas: 1
+      placement:
+        constraints:
+          - node.hostname == ${PRIMARY_NODE}
+  isc-dhcp-server-secondary:
+    image: isc-dhcp-server:latest
+    container_name: isc-dhcp-server
+    restart: always
+    environment:
+      - use_data_dir=false
+      - data_dir=/data
+      - IFACE=eth0
+      - swarm=true
+    privileged: true
+    volumes:
+      - '/docker/dhcp/dhcpd-master.conf:/etc/dhcp/dhcpd.conf'
+      - '/docker/dhcp/dhcpd.leases:/etc/dhcp/dhcpd.leases'
+      - '/docker/dhcp/dhcpd.hosts:/etc/dhcp/dhcpd.hosts'
+    networks:
+      - outside
+    deploy:
+      mode: replicated
+      replicas: 1
+      placement:
+        constraints:
+          - node.hostname == ${SECONDARY_NODE}
 networks:
   outside:
     external:
