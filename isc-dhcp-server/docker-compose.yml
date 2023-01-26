@@ -4,7 +4,8 @@ services:
     image: isc-dhcp-server:latest
     container_name: isc-dhcp-server
     restart: always
-    network_mode: "host"
+    networks:
+      - hnet-prim
     environment:
       - use_data_dir=true
       - data_dir=/data
@@ -23,9 +24,10 @@ services:
           - node.hostname == ${PRIMARY_NODE}
   isc-dhcp-server-secondary:
     image: isc-dhcp-server:latest
-    network_mode: "host"
     container_name: isc-dhcp-server
     restart: always
+    networks:
+      - hnet-sec
     environment:
       - use_data_dir=true
       - data_dir=/data
@@ -41,6 +43,9 @@ services:
         constraints:
           - node.hostname == ${SECONDARY_NODE}
 networks:
-  outside:
+  hnet-prim:
+    external:
+      name: "host"
+  hnet-sec:
     external:
       name: "host"
