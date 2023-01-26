@@ -33,7 +33,7 @@ services:
       - swarm=true
     privileged: true
     volumes:
-      - '/docker/isc-dhcp-ha/dhcpd-worker.conf:/data/dhcpd-worker.conf'
+      - '/docker/isc-dhcp-ha/dhcpd-worker.conf:/data/dhcpd.conf'
       #- '/docker/isc-dhcp-ha/dhcpd.leases:/etc/dhcp/dhcpd.leases'
       #- '/docker/isc-dhcp-ha/dhcpd.hosts:/etc/dhcp/dhcpd.hosts'
     networks:
