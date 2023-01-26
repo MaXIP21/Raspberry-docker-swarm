@@ -33,9 +33,9 @@ services:
       - swarm=true
     privileged: true
     volumes:
-      - '/docker/dhcp/dhcpd-master.conf:/etc/dhcp/dhcpd.conf'
-      - '/docker/dhcp/dhcpd.leases:/etc/dhcp/dhcpd.leases'
-      - '/docker/dhcp/dhcpd.hosts:/etc/dhcp/dhcpd.hosts'
+      - '/docker/isc-dhcp-ha/dhcpd-master.conf:/etc/dhcp/dhcpd.conf'
+      - '/docker/isc-dhcp-ha/dhcpd.leases:/etc/dhcp/dhcpd.leases'
+      - '/docker/isc-dhcp-ha/dhcpd.hosts:/etc/dhcp/dhcpd.hosts'
     networks:
       - outside
     deploy:
