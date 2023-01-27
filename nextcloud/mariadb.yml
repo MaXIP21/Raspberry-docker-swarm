@@ -2,11 +2,10 @@
 version: '3.8'
 
 services:
-
   mariadb:
     image: mariadb
     command: --transaction-isolation=READ-COMMITTED --binlog-format=ROW --innodb-file-per-table=1 --skip-innodb-read-only-compressed
-    container_name: nextcloud-mariadb
+    container_name: mariadb-dluster
     networks:
       - db-network
     deploy:
