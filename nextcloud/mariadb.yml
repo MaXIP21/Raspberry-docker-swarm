@@ -44,3 +44,9 @@ services:
       - consul-bridge
     depends_on:
       - mariadb
+
+networks:
+  nextcloud_network:
+    external: true
+  consul-bridge:
+    external: true
