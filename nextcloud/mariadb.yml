@@ -8,7 +8,7 @@ services:
     command: --transaction-isolation=READ-COMMITTED --binlog-format=ROW --innodb-file-per-table=1 --skip-innodb-read-only-compressed
     container_name: nextcloud-mariadb
     networks:
-      - nextcloud_network
+      - db-network
     deploy:
       mode: replicated
       replicas: 1
@@ -40,13 +40,13 @@ services:
         constraints:
           - node.hostname == swarm-worker
     networks:
-      - nextcloud_network
+      - db-network
       - consul-bridge
     depends_on:
       - mariadb
 
 networks:
-  nextcloud_network:
+  db-network:
     external: true
   consul-bridge:
     external: true
