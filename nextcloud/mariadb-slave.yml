@@ -1,0 +1,33 @@
+---
+version: '3.8'
+
+services:
+
+  mariadb-slave:
+    image: mariadb
+    command: --transaction-isolation=READ-COMMITTED --binlog-format=ROW --innodb-file-per-table=1 --skip-innodb-read-only-compressed
+    container_name: nextcloud-mariadb
+    networks:
+      - db-network
+    deploy:
+      mode: replicated
+      replicas: 1
+      placement:
+        constraints:
+          - node.hostname == ${NODENAME}
+    volumes:
+      - /docker/mariadb/db:/var/lib/mysql
+      - /docker/mariadb/backup:/dbbackup
+      - /docker/mariadb/conf/mysql/my.cnf:/etc/mysql/my.cnf
+      - /etc/localtime:/etc/localtime:ro
+    environment:
+      - MYSQL_ROOT_PASSWORD=${MYSQL_ROOT_PW}
+      - MYSQL_PASSWORD=${MYSQL_PW}
+      - MYSQL_DATABASE=${MYSQL_DB}
+      - MYSQL_USER=${MYSQL_USER}
+    restart: unless-stopped
+
+
+networks:
+  db-network:
+    external: true
