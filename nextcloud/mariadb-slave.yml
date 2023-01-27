@@ -18,7 +18,7 @@ services:
     volumes:
       - /docker/mariadb/db:/var/lib/mysql
       - /docker/mariadb/backup:/dbbackup
-      - /docker/mariadb/conf/mysql/my-slave.cnf:/etc/mysql/my-slave.cnf
+      - /docker/mariadb/conf/mysql/my-slave.cnf:/etc/mysql/my.cnf
       - /etc/localtime:/etc/localtime:ro
     environment:
       - MYSQL_ROOT_PASSWORD=${MYSQL_ROOT_PW}
