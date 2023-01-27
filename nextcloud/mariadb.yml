@@ -17,7 +17,7 @@ services:
           - node.hostname == swarm-worker
     volumes:
       - /docker/mariadb/db:/var/lib/mysql
-      - /docker/mariadb/conf:/etc/mariadbconf
+      - /docker/mariadb/conf/mysql:/etc/mysql
       - /etc/localtime:/etc/localtime:ro
     environment:
       - MYSQL_ROOT_PASSWORD=${MYSQL_ROOT_PW}
