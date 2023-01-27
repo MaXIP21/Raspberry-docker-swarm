@@ -10,10 +10,8 @@ services:
       - traefik-public
     links:
       - mariadb
-    depends_on:
-      - mariadb
     volumes:
-      - nextcloud:/var/www/html
+      - /docker/nextcloud:/var/www/html
       - /etc/localtime:/etc/localtime:ro
     environment:
       - MYSQL_PASSWORD=${MYSQL_PW}
@@ -39,17 +37,6 @@ services:
           - traefik.http.routers.nextcloud-https.tls.certresolver=leresolver
           - traefik.http.services.nextcloud.loadbalancer.server.port=80
     restart: unless-stopped
-volumes:
-  nextcloud:
-    driver_opts:
-      type: "nfs"
-      o: "addr=${NFS_HOST},nfsvers=4"
-      device: ":/docker/nextcloud"
-  db:
-    driver_opts:
-      type: "nfs"
-      o: "addr=${NFS_HOST},nfsvers=4"
-      device: ":/docker/mariadb"
 
 networks:
   db-network:
