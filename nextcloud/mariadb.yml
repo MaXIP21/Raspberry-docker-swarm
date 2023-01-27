@@ -17,6 +17,7 @@ services:
           - node.hostname == swarm-worker
     volumes:
       - /docker/mariadb/db:/var/lib/mysql
+      - /docker/mariadb/bacup:/dbbackup
       - /docker/mariadb/conf/mysql/my.cnf:/etc/mysql/my.cnf
       - /etc/localtime:/etc/localtime:ro
     environment:
