@@ -27,6 +27,9 @@ services:
     cap_add:
       - NET_ADMIN
     restart: unless-stopped
+    depends_on:
+      portainer:
+        condition: service_healthy
     networks:
       vip-241:
         ipv4_address: 192.168.1.241
