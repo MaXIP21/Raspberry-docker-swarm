@@ -9,6 +9,7 @@ services:
       - PGID=1000
       - TZ=Europe/Budapest
       - TRANSMISSION_WEB_HOME=/transmissionic/
+      - STARTUP=${startup?Startup variable not set} 
       - USER=${admin_user} 
       - PASS=${admin_password}
     ports:
