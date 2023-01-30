@@ -28,7 +28,7 @@ services:
       - NET_ADMIN
     restart: unless-stopped
     depends_on:
-      portainer:
+      portainer_portainer:
         condition: service_healthy
     networks:
       vip-241:
