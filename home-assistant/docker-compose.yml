@@ -5,6 +5,8 @@ services:
     container_name: homeassistant
     networks:
       - traefik-public
+    devices:
+      - /dev/ttyACM0:/dev/ttyACM0
     ports:
       - 8123:8123
     security_opt:
