@@ -33,8 +33,11 @@ services:
           - traefik.http.routers.home-assistant-https.tls.certresolver=leresolver
           - traefik.http.services.home-assistant.loadbalancer.server.port=8123
     volumes:
-        - /docker/home-assistant:/config
+        - home-assistant:/config
     restart: unless-stopped
+
+volumes:
+  home-assistant:
 
 networks:
   bridge:
