@@ -4,7 +4,6 @@ services:
     image: ghcr.io/home-assistant/home-assistant:stable
     container_name: homeassistant
     networks:
-      - bridge
       - traefik-public
     ports:
       - 8123:8123
@@ -33,14 +32,9 @@ services:
           - traefik.http.routers.home-assistant-https.tls.certresolver=leresolver
           - traefik.http.services.home-assistant.loadbalancer.server.port=8123
     volumes:
-        - home-assistant:/config
+        - /docker/home-assistant:/config
     restart: unless-stopped
 
-volumes:
-  home-assistant:
-
 networks:
-  bridge:
-    external: true
   traefik-public:
     external: true
