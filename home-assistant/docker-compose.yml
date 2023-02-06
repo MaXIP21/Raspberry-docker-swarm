@@ -22,6 +22,16 @@ services:
       placement:
         constraints:
           - node.hostname == swarm-worker
+      labels:
+          - traefik.enable=true
+          - traefik.http.routers.home-assistant-http.rule=Host(`${DOMAIN?Variable not set}`)
+          - traefik.http.routers.home-assistant-http.entrypoints=web
+          - traefik.http.routers.home-assistant-http.middlewares=redirect-to-https
+          - traefik.http.routers.home-assistant-https.rule=Host(`${DOMAIN?Variable not set}`)
+          - traefik.http.routers.home-assistant-https.entrypoints=websecure
+          - traefik.http.routers.home-assistant-https.tls=true
+          - traefik.http.routers.home-assistant-https.tls.certresolver=leresolver
+          - traefik.http.services.home-assistant.loadbalancer.server.port=8123
     volumes:
         - /docker/home-assistant:/config
     restart: unless-stopped
