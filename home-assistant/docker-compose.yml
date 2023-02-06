@@ -4,7 +4,7 @@ services:
     image: ghcr.io/home-assistant/home-assistant:stable
     container_name: homeassistant
     networks:
-      - home-assistant-network
+      - bridge
       - traefik-public
     expose:
       - 8123
@@ -27,7 +27,7 @@ services:
     restart: unless-stopped
 
 networks:
-  home-assistant-network:
+  bridge:
     external: true
   traefik-public:
     external: true
