@@ -1,9 +1,11 @@
-version: '3.5'
+version: '3.8'
 services:
   homeassistant:
     image: ghcr.io/home-assistant/home-assistant:stable
     container_name: homeassistant
-    network_mode: host
+    networks:
+      - home-assistant-network
+      - traefik-public
     expose:
       - 8123
     security_opt:
@@ -13,6 +15,7 @@ services:
         - PUID=1000
         - PGID=1000
         - TZ=Europe/Berlin
+        - STARTUP=${startup?Startup variable not set} 
     deploy:
       mode: replicated
       replicas: 1
@@ -20,8 +23,11 @@ services:
         constraints:
           - node.hostname == swarm-worker
     volumes:
-        - home-assistant:/config
+        - /docker/home-assistant:/config
     restart: unless-stopped
 
-volumes:
-  home-assistant:
+networks:
+  home-assistant-network:
+    external: true
+  traefik-public:
+    external: true
