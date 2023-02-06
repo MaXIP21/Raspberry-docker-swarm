@@ -30,7 +30,7 @@ services:
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock:ro
       - /docker/traefik/certificates:/certificates
-      - /docker/traefik/config:/config
+      - /docker/traefik/config/traefik.yml://etc/traefik/traefik.yml
     command:
       - --log.level=INFO
       # - --accesslog=true
