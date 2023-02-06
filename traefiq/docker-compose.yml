@@ -39,6 +39,7 @@ services:
       - --providers.docker.exposedbydefault=false
       - --providers.docker.swarmmode=true
       - --providers.docker.network=traefik-public
+      - --providers.file.filename=config.yml
       - --api
       - --api.dashboard=true
       - --api.insecure=true
