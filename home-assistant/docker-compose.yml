@@ -9,9 +9,9 @@ services:
       - /dev/ttyACM0:/dev/ttyACM0
     ports:
       - 8123:8123
-    security_opt:
-      - seccomp:unconfined
-      - apparmor:unconfined
+    # security_opt:
+    #   - seccomp:unconfined
+    #   - apparmor:unconfined
     environment:
         - PUID=1000
         - PGID=1000
