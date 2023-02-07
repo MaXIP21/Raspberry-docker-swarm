@@ -26,25 +26,25 @@ services:
       - MYSQL_USER=${MYSQL_USER}
     restart: unless-stopped
     
-  mariadb-exporter:
-    image: quay.io/prometheus/mysqld-exporter
-    container_name: mysqld-exporter
-    command: --collect.info_schema.tables
-    environment:
-      - DATA_SOURCE_NAME=${EXPORTER_USER}:${EXPORTER_PW}@(mariadb:3306)/?allowCleartextPasswords=true
-    ports:
-      - 9104:9104
-    deploy:
-      mode: replicated
-      replicas: 1
-      placement:
-        constraints:
-          - node.hostname == ${NODENAME}
-    networks:
-      - db-network
-      - consul-bridge
-    depends_on:
-      - mariadb
+  # mariadb-exporter:
+  #   image: quay.io/prometheus/mysqld-exporter
+  #   container_name: mysqld-exporter
+  #   command: --collect.info_schema.tables
+  #   environment:
+  #     - DATA_SOURCE_NAME=${EXPORTER_USER}:${EXPORTER_PW}@(mariadb:3306)/?allowCleartextPasswords=true
+  #   ports:
+  #     - 9104:9104
+  #   deploy:
+  #     mode: replicated
+  #     replicas: 1
+  #     placement:
+  #       constraints:
+  #         - node.hostname == ${NODENAME}
+  #   networks:
+  #     - db-network
+  #     - consul-bridge
+  #   depends_on:
+  #     - mariadb
 
 networks:
   db-network:
