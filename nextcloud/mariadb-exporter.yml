@@ -1,0 +1,53 @@
+---
+version: '3.8'
+
+services:
+  mariadb:
+    image: mariadb
+    command: --transaction-isolation=READ-COMMITTED --binlog-format=ROW --innodb-file-per-table=1 --skip-innodb-read-only-compressed
+    container_name: mariadb-dluster
+    networks:
+      - db-network
+    deploy:
+      mode: replicated
+      replicas: 1
+      placement:
+        constraints:
+          - node.hostname == ${NODENAME}
+    volumes:
+      - /docker/mariadb/db:/var/lib/mysql
+      - /docker/mariadb/backup:/dbbackup
+      - /docker/mariadb/conf/mysql/my.cnf:/etc/mysql/my.cnf
+      - /etc/localtime:/etc/localtime:ro
+    environment:
+      - MYSQL_ROOT_PASSWORD=${MYSQL_ROOT_PW}
+      - MYSQL_PASSWORD=${MYSQL_PW}
+      - MYSQL_DATABASE=${MYSQL_DB}
+      - MYSQL_USER=${MYSQL_USER}
+    restart: unless-stopped
+    
+  mariadb-exporter:
+    image: quay.io/prometheus/mysqld-exporter
+    container_name: mysqld-exporter
+    command: --collect.info_schema.tables
+    environment:
+      - DATA_SOURCE_NAME=${EXPORTER_USER}:${EXPORTER_PW}@(mariadb:3306)/?allowCleartextPasswords=true
+    ports:
+      - 9104:9104
+    deploy:
+      mode: replicated
+      replicas: 1
+      placement:
+        constraints:
+          - node.hostname == ${NODENAME}
+    networks:
+      - db-network
+      - consul-bridge
+    depends_on:
+      - mariadb
+
+networks:
+  db-network:
+    external: true
+  consul-bridge:
+    external: true
