@@ -15,8 +15,11 @@ services:
           - node.hostname == swarm-worker
     networks:
       - consul-bridge
+      - db-network
     volumes:
       - /docker/monitoring/my.cnf:/home/.my.cnf
 networks:
   consul-bridge:
+    external: true
+  db-network:
     external: true
