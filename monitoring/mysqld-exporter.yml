@@ -15,6 +15,8 @@ services:
           - node.hostname == swarm-worker
     networks:
       - consul-bridge
+    volumes:
+      - /docker/monitoring/my.cnf:/home/.my.cnf
 networks:
   consul-bridge:
     external: true
