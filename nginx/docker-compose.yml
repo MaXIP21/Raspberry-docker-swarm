@@ -11,6 +11,7 @@ services:
     volumes:
      - templates:/etc/nginx/templates
      - src:/usr/share/nginx/html
+     - conf=nginx.conf:/etc/nginx/nginx.conf
     environment:
      - NGINX_HOST=${DOMAIN?Variable not set}
      - NGINX_PORT=80
