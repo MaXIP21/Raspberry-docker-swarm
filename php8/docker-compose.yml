@@ -19,8 +19,8 @@ services:
   # Nginx Service
   nginx:
     image: nginx:latest
-    ports:
-        - 88:80
+    expose:
+        - 80
     volumes:
         - '/docker/sc/workdir/usr/share/nginx/html/eInvoice'
         - '/docker/sc/workdir/nginx-config/00-nginx:/etc/nginx/sites-enabled/default'
