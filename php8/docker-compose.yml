@@ -22,7 +22,7 @@ services:
     expose:
         - 80
     volumes:
-        - '/docker/sc/workdir/usr/share/nginx/html/eInvoice'
+        - '/docker/sc/workdir:/usr/share/nginx/html/eInvoice'
         - '/docker/sc/nginx-config/00-nginx:/etc/nginx/sites-enabled/default'
         - '/docker/sc/nginx-config/nginx.conf:/etc/nginx/nginx.conf'
     depends_on:
