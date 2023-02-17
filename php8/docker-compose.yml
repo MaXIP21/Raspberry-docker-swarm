@@ -40,7 +40,7 @@ services:
   phpmyadmin:
     image: phpmyadmin/phpmyadmin:latest
     ports:
-        - 8080:80
+        - 8180:80
     environment:
         PMA_HOST: mariadb
     depends_on:
