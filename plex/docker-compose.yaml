@@ -4,7 +4,7 @@ services:
     image: lscr.io/linuxserver/plex:latest
     # container_name: plex-ubuntu
     restart: unless-stopped
-    #network_mode: "host" 
+    network_mode: "host" 
     privileged: true
     ports:
       - "32400:32400/tcp"
@@ -31,7 +31,7 @@ services:
           - traefik.http.routers.portainer-https.tls.certresolver=leresolver
           - traefik.http.services.portainer.loadbalancer.server.port=9000
     networks:
-       - traefik-public
+      - traefik-public
       #placement:
       #  constraints:
       #    - node.role == worker
@@ -42,7 +42,5 @@ services:
       - /docker/plex/movies:/mnt/movies
     restart: unless-stopped
 networks:
-  agent-network:
-    attachable: true
   traefik-public:
     external: true
