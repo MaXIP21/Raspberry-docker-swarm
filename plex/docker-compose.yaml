@@ -18,7 +18,7 @@ services:
       placement:
         constraints:
           - node.role == worker
-        labels:
+      labels:
           - traefik.enable=true
           - traefik.docker.network=traefik-public
           - traefik.constraint-label=traefik-public
@@ -41,6 +41,8 @@ services:
       - /docker/plex/comedy:/mnt/comedy
       - /docker/plex/movies:/mnt/movies
     restart: unless-stopped
-networks:  
-   traefik-public:
-      external: true
+networks:
+  agent-network:
+    attachable: true
+  traefik-public:
+    external: true
