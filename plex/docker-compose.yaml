@@ -18,20 +18,6 @@ services:
       placement:
         constraints:
           - node.role == worker
-      labels:
-          - traefik.enable=true
-          - traefik.docker.network=traefik-public
-          - traefik.constraint-label=traefik-public
-          - traefik.http.routers.portainer-http.rule=Host(`${DOMAIN?Variable not set}`)
-          - traefik.http.routers.portainer-http.entrypoints=web
-          - traefik.http.routers.portainer-http.middlewares=redirect-to-https
-          - traefik.http.routers.portainer-https.rule=Host(`${DOMAIN?Variable not set}`)
-          - traefik.http.routers.portainer-https.entrypoints=websecure
-          - traefik.http.routers.portainer-https.tls=true
-          - traefik.http.routers.portainer-https.tls.certresolver=leresolver
-          - traefik.http.services.portainer.loadbalancer.server.port=9000
-    networks:
-      - traefik-public
       #placement:
       #  constraints:
       #    - node.role == worker
@@ -41,6 +27,3 @@ services:
       - /docker/plex/comedy:/mnt/comedy
       - /docker/plex/movies:/mnt/movies
     restart: unless-stopped
-networks:
-  traefik-public:
-    external: true
