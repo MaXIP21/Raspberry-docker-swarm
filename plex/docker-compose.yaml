@@ -18,17 +18,17 @@ services:
       placement:
         max_replicas_per_node: 1
       labels: 
-        - traefik.enable=true 
-        - traefik.docker.network=traefik-public 
-        - traefik.constraint-label=traefik-public 
-        - traefik.http.routers.plex-http.rule=Host(`${DOMAIN?Variable not set}`) 
-        - traefik.http.routers.plex-http.entrypoints=web 
-        - traefik.http.routers.plex-http.middlewares=redirect-to-https 
-        - traefik.http.routers.plex-https.rule=Host(`${DOMAIN?Variable not set}`) 
-        - traefik.http.routers.plex-https.entrypoints=websecure 
-        - traefik.http.routers.plex-https.tls=true 
-        - traefik.http.routers.plex-https.tls.certresolver=leresolver 
-        - traefik.http.services.plex.loadbalancer.server.port=32400
+          - traefik.enable=true 
+          - traefik.docker.network=traefik-public 
+          - traefik.constraint-label=traefik-public 
+          - traefik.http.routers.plex-http.rule=Host(`${DOMAIN?Variable not set}`) 
+          - traefik.http.routers.plex-http.entrypoints=web 
+          - traefik.http.routers.plex-http.middlewares=redirect-to-https 
+          - traefik.http.routers.plex-https.rule=Host(`${DOMAIN?Variable not set}`) 
+          - traefik.http.routers.plex-https.entrypoints=websecure 
+          - traefik.http.routers.plex-https.tls=true 
+          - traefik.http.routers.plex-https.tls.certresolver=leresolver 
+          - traefik.http.services.plex.loadbalancer.server.port=32400
     networks: 
       - traefik-public 
       #placement:
