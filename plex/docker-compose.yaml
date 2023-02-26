@@ -16,21 +16,23 @@ services:
       mode: replicated
       replicas: 1
       placement:
-        max_replicas_per_node: 1
-      labels: 
-          - traefik.enable=true 
-          - traefik.docker.network=traefik-public 
-          - traefik.constraint-label=traefik-public 
-          - traefik.http.routers.plex-http.rule=Host(`${DOMAIN?Variable not set}`) 
-          - traefik.http.routers.plex-http.entrypoints=web 
-          - traefik.http.routers.plex-http.middlewares=redirect-to-https 
-          - traefik.http.routers.plex-https.rule=Host(`${DOMAIN?Variable not set}`) 
-          - traefik.http.routers.plex-https.entrypoints=websecure 
-          - traefik.http.routers.plex-https.tls=true 
-          - traefik.http.routers.plex-https.tls.certresolver=leresolver 
-          - traefik.http.services.plex.loadbalancer.server.port=32400
-    networks: 
-      - traefik-public 
+        constraints:
+          - node.role == worker
+        labels:
+          - traefik.enable=true
+          - traefik.docker.network=traefik-public
+          - traefik.constraint-label=traefik-public
+          - traefik.http.routers.portainer-http.rule=Host(`${DOMAIN?Variable not set}`)
+          - traefik.http.routers.portainer-http.entrypoints=web
+          - traefik.http.routers.portainer-http.middlewares=redirect-to-https
+          - traefik.http.routers.portainer-https.rule=Host(`${DOMAIN?Variable not set}`)
+          - traefik.http.routers.portainer-https.entrypoints=websecure
+          - traefik.http.routers.portainer-https.tls=true
+          - traefik.http.routers.portainer-https.tls.certresolver=leresolver
+          - traefik.http.services.portainer.loadbalancer.server.port=9000
+      networks:
+        - agent-network
+        - traefik-public
       #placement:
       #  constraints:
       #    - node.role == worker
