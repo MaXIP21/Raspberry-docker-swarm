@@ -8,7 +8,7 @@ services:
       - traefik-public
       - db-network
     volumes:
-      - wp_data:/var/www/html
+      - /docker/wp_data:/var/www/html
     ports:
       - 8070:80
     restart: always
