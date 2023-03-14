@@ -1,0 +1,27 @@
+---
+version: '3.8'
+
+services:
+  wordpress:
+    image: wordpress:latest
+    networks:
+      - traefik-public
+      - db-network
+    volumes:
+      - wp_data:/var/www/html
+    ports:
+      - 8070:80
+    restart: always
+    environment:
+      - MYSQL_PASSWORD=${MYSQL_PW}
+      - MYSQL_DATABASE=${MYSQL_DB}
+      - MYSQL_USER=${MYSQL_USER}
+      - MYSQL_HOST=${MYSQL_HOST}
+    deploy:
+      mode: replicated
+      replicas: 1
+      placement:
+        constraints:
+          - node.hostname == swarm-worker
+      labels:
+          - traefik.enable=false
