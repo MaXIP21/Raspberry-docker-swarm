@@ -5,7 +5,7 @@ services:
   wordpress:
     image: wordpress:latest
     networks:
-      - traefik-public
+      # - traefik-public
       - db-network
     volumes:
       - /docker/wp_data:/var/www/html
@@ -23,5 +23,6 @@ services:
       placement:
         constraints:
           - node.hostname == swarm-worker
-      labels:
-          - traefik.enable=false
+networks:
+  db-network:
+    external: true
