@@ -25,6 +25,7 @@ services:
     restart: always
     volumes:
      - /docker/consul/server:/consul
+     - /docker/consul/server/data:/consul/data
     networks:
       - consul-bridge
       - traefik-public
