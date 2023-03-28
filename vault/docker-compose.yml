@@ -1,0 +1,30 @@
+---
+version: '3.8'
+
+services:
+  vault:
+    image: hashicorp/vault:latest
+    networks:
+      - vault-network
+    ports:
+      - 8201:8201
+      - 8200:8200
+    environment:
+      VAULT_API_ADDR: "http://0.0.0.0:8200"
+    cap_add:
+      - IPC_LOCK
+    volumes:
+      - /docker/vault/vault-backend:/vault/file
+      - /docker/vault/vault-logs:/vault/logs
+      - /docker/vault/configs:/vault/config
+      - /docker/vault/plugins:/vault/plugins
+    deploy:
+      mode: replicated
+      replicas: 1
+      placement:
+        constraints:
+          - node.hostname == ${NODESELECTOR}
+          
+networks:
+  vault-network:
+    external: true
