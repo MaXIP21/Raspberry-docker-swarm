@@ -28,6 +28,7 @@ scrape_configs:
     honor_labels: true
     consul_sd_configs:
     - server: consul-server:8500
+      token: 210e0058-25a9-f02a-fe97-20c59f9354cb
       services: [windows-exporter]
     relabel_configs:
     - source_labels: [__meta_consul_tags]
@@ -59,6 +60,7 @@ scrape_configs:
     honor_labels: true
     consul_sd_configs:
     - server: consul-server:8500
+      token: 210e0058-25a9-f02a-fe97-20c59f9354cb
       services: [node-exporter]
     relabel_configs:
     - source_labels: [__meta_consul_tags]
@@ -90,6 +92,7 @@ scrape_configs:
     honor_labels: true
     consul_sd_configs:
     - server: consul-server:8500
+      token: 210e0058-25a9-f02a-fe97-20c59f9354cb
       services: [mariadb-metrics]
     relabel_configs:
     - source_labels: [__meta_consul_tags]
@@ -121,6 +124,7 @@ scrape_configs:
     honor_labels: true
     consul_sd_configs:
     - server: consul-server:8500
+      token: 210e0058-25a9-f02a-fe97-20c59f9354cb
       services: [nextcloud-exporter]
     relabel_configs:
     - source_labels: [__meta_consul_tags]

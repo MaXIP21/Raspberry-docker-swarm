@@ -51,7 +51,6 @@ services:
     volumes:
       - /docker/monitoring/prometheus/rules.d:/etc/prometheus/rules.d
       - /docker/monitoring/prometheus/prometheus.yml:/etc/prometheus/prometheus.yml
-      - /docker/monitoring/prometheus/consul_token:/etc/prometheus/consul_token
       - /docker/prometheus_data:/prometheus/data
     networks:
       - consul-bridge
