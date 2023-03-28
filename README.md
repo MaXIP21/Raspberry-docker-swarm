@@ -17,4 +17,5 @@ Enjoy !!
 ```
 docker network create --driver overlay traefik-public 
 docker network create --driver overlay consul-bridge
+docker network create --driver overlay vault-network
 ```
