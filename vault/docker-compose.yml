@@ -6,6 +6,7 @@ services:
     image: hashicorp/vault:latest
     networks:
       - vault-network
+      - consul-bridge
     ports:
       - 8201:8201
       - 8200:8200
@@ -24,7 +25,9 @@ services:
       placement:
         constraints:
           - node.hostname == ${NODESELECTOR}
-          
+
 networks:
   vault-network:
+    external: true
+  consul-bridge:
     external: true
