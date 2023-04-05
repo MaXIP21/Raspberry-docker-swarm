@@ -13,7 +13,7 @@ services:
       - swarm=true
     privileged: true
     volumes:
-      - '/docker/isc-dhcp-ha/dhcpd-master.conf:/data/dhcpd.conf'
+      - '/docker/dhcp/dhcpd-master.conf:/data/dhcpd.conf'
       #- '/docker/dhcp/dhcpd.leases:/etc/dhcp/dhcpd.leases'
       #- '/docker/dhcp/dhcpd.hosts:/etc/dhcp/dhcpd.hosts'
     deploy:
@@ -35,7 +35,7 @@ services:
       - swarm=true
     privileged: true
     volumes:
-      - '/docker/isc-dhcp-ha/dhcpd-worker.conf:/data/dhcpd.conf'
+      - '/docker/dhcp/dhcpd-worker.conf:/data/dhcpd.conf'
     deploy:
       mode: replicated
       replicas: 1
