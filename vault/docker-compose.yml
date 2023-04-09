@@ -13,6 +13,7 @@ services:
     environment:
       VAULT_API_ADDR: "http://vault:8200"
       VAULT_ADDR: "http://vault:8200"
+      VAULT_DEV_ROOT_TOKEN_ID: $VAULT_TOKEN
     cap_add:
       - IPC_LOCK
     volumes:
