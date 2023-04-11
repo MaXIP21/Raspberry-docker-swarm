@@ -18,8 +18,8 @@ services:
       - /docker/vault/vault-backend:/vault/file
       - /docker/vault/vault-logs:/vault/logs
       - /docker/vault/configs:/vault/config
-      - /docker/vault/verts/server.crt:/etc/vault/server.crt
-      - /docker/vault/verts/server.key:/etc/vault/server.key
+      - /docker/vault/certs/server.crt:/etc/vault/server.crt
+      - /docker/vault/certs/server.key:/etc/vault/server.key
       - /docker/vault/plugins:/vault/plugins
     deploy:
       mode: replicated
