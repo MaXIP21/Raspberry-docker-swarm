@@ -11,8 +11,6 @@ services:
       - 8201:8201
       - 8200:8200
     environment:
-      VAULT_API_ADDR: "http://vault:8200"
-      VAULT_ADDR: "http://vault:8200"
       VAULT_DEV_ROOT_TOKEN_ID: "$VAULT_TOKEN"
     cap_add:
       - IPC_LOCK
@@ -20,6 +18,8 @@ services:
       - /docker/vault/vault-backend:/vault/file
       - /docker/vault/vault-logs:/vault/logs
       - /docker/vault/configs:/vault/config
+      - /docker/vault/verts/server.crt:/etc/vault/server.crt
+      - /docker/vault/verts/server.key:/etc/vault/server.key
       - /docker/vault/plugins:/vault/plugins
     deploy:
       mode: replicated
