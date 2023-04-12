@@ -1,0 +1,30 @@
+{
+    "listener": 
+    [
+        {
+            "tcp":
+            {
+                "address": "0.0.0.0:8200",
+                "tls_disable":"0", 
+                "tls_cert_file":"/etc/vault/server.crt", 
+                "tls_key_file":"/etc/vault/server.key"
+                
+            }
+        }
+    ], 
+    "storage": {
+      "consul": {
+        "address": "consul.servinet:8500",
+        "token": "",
+        "disable_registration": true,
+        "service_address": "consul01.vie.net:8200",
+        "check_timeout": "1m",
+        "service": "vault",
+        "path": "vault/",
+        "scheme": "http"
+      }
+    },
+    "default_lease_ttl": "168h", 
+    "max_lease_ttl": "720h",
+    "ui": true,
+}
