@@ -33,18 +33,18 @@ services:
       placement:
         constraints:
           - node.hostname == ${NODESELECTOR}
-        labels:
-          - traefik.enable=true
-          - traefik.docker.network=traefik-public
-          - traefik.constraint-label=traefik-public
-          - traefik.http.routers.vault.rule=Host(`${DOMAIN?Variable not set}`)
-          - traefik.http.routers.vault.entrypoints=web
-          - traefik.http.routers.vault.middlewares=redirect-to-https
-          - traefik.http.routers.vault-https.rule=Host(`${DOMAIN?Variable not set}`)
-          - traefik.http.routers.vault-https.entrypoints=websecure
-          - traefik.http.routers.vault-https.tls=true
-          - traefik.http.routers.vault-https.tls.certresolver=leresolver
-          - traefik.http.services.vault.loadbalancer.server.port=80
+      labels:
+        - traefik.enable=true
+        - traefik.docker.network=traefik-public
+        - traefik.constraint-label=traefik-public
+        - traefik.http.routers.vault.rule=Host(`${DOMAIN?Variable not set}`)
+        - traefik.http.routers.vault.entrypoints=web
+        - traefik.http.routers.vault.middlewares=redirect-to-https
+        - traefik.http.routers.vault-https.rule=Host(`${DOMAIN?Variable not set}`)
+        - traefik.http.routers.vault-https.entrypoints=websecure
+        - traefik.http.routers.vault-https.tls=true
+        - traefik.http.routers.vault-https.tls.certresolver=leresolver
+        - traefik.http.services.vault.loadbalancer.server.port=80
 
 networks:
   vault-network:
