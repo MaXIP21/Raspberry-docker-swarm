@@ -5,6 +5,7 @@
             "tcp":
             {
                 "address": "0.0.0.0:8200",
+                "cluster_address": "192.168.1.239:8201",
                 "tls_disable":"0", 
                 "tls_cert_file":"/etc/vault/server.crt", 
                 "tls_key_file":"/etc/vault/server.key"
@@ -14,10 +15,10 @@
     ], 
     "storage": {
       "consul": {
-        "address": "consul.servinet:8500",
-        "token": "",
+        "address": "consul-server:8500",
+        "token": "78e4bbd6-eb98-783b-6b7d-493926d43f61",
         "disable_registration": true,
-        "service_address": "consul01.vie.net:8200",
+        "service_address": "consul-server:8200",
         "check_timeout": "1m",
         "service": "vault",
         "path": "vault/",
@@ -26,5 +27,5 @@
     },
     "default_lease_ttl": "168h", 
     "max_lease_ttl": "720h",
-    "ui": true,
+    "ui": true
 }
