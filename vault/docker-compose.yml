@@ -7,6 +7,7 @@ services:
     networks:
       - vault-network
       - consul-bridge
+      - traefik-public
     restart: on-failure:10
     ports:
       - 8201:8201
@@ -50,4 +51,6 @@ networks:
   vault-network:
     external: true
   consul-bridge:
+    external: true
+  traefik-public:
     external: true
