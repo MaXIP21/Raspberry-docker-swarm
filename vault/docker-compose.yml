@@ -44,7 +44,7 @@ services:
         - traefik.http.routers.vault-https.entrypoints=websecure
         - traefik.http.routers.vault-https.tls=true
         - traefik.http.routers.vault-https.tls.certresolver=leresolver
-        - traefik.http.services.vault.loadbalancer.server.port=80
+        - traefik.http.services.vault.loadbalancer.server.port=8200
 
 networks:
   vault-network:
