@@ -18,7 +18,8 @@ services:
       placement:
         constraints:
           - node.role == worker
-      #placement:
+          - node.hostname == ${NODE_NAME}
+      #placement:N
       #  constraints:
       #    - node.role == worker
     volumes:
