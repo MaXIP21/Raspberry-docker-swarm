@@ -17,7 +17,6 @@ services:
       replicas: 1
       placement:
         constraints:
-          - node.role == worker
           - node.hostname == ${NODE_NAME}
       #placement:N
       #  constraints:
