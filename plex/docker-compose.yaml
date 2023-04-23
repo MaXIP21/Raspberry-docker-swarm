@@ -17,7 +17,7 @@ services:
       replicas: 1
       placement:
         constraints:
-          - node.hostname == ${NODE_NAME}
+          - node.hostname == archive-server
       #placement:N
       #  constraints:
       #    - node.role == worker
