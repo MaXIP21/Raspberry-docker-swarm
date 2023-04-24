@@ -16,9 +16,6 @@ services:
       placement:
         constraints:
           - node.hostname == archive-server
-      #placement:N
-      #  constraints:
-      #    - node.role == worker
     volumes:
       - /docker/plex/config:/config
       - /docker/plex/tv:/mnt/tv
