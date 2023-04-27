@@ -9,7 +9,7 @@ services:
       replicas: 1
       placement:
         constraints:
-          - node.hostname == ${NODENAME}
+          - node.labels.Consul == true
       labels:
           - traefik.enable=true
           - traefik.http.routers.consul-http.rule=Host(`${CONSUL_DOMAIN?Variable not set}`)
