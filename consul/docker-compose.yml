@@ -60,7 +60,7 @@ services:
       replicas: 1
       placement:
         constraints:
-          - node.labels.Consul-client == true
+          - node.labels.Consulclient == true
     restart: always
     volumes:
       - /docker/consul/client/${NODE2}:/consul/config
