@@ -14,7 +14,7 @@ services:
       replicas: 1
       placement:
         constraints:
-          - node.hostname == ${NODENAME}
+          - node.labels.Monitoring == true
       labels:
           - traefik.enable=true
           - traefik.docker.network=traefik-public
@@ -47,7 +47,7 @@ services:
       replicas: 1
       placement:
         constraints:
-          - node.hostname == ${NODENAME}
+          - node.labels.Monitoring == true
     volumes:
       - /docker/monitoring/prometheus/rules.d:/etc/prometheus/rules.d
       - /docker/monitoring/prometheus/prometheus.yml:/etc/prometheus/prometheus.yml
@@ -74,7 +74,7 @@ services:
       replicas: 1
       placement:
         constraints:
-          - node.hostname == ${NODENAME}
+          - node.labels.Monitoring == true
     networks:
       - consul-bridge
   karma:
@@ -91,7 +91,7 @@ services:
       replicas: 1
       placement:
         constraints:
-          - node.hostname == ${NODENAME}
+          - node.labels.Monitoring == true
       labels:
           - traefik.enable=true
           - traefik.docker.network=traefik-public
