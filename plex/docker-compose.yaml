@@ -1,5 +1,5 @@
 ---
-version: "3.8"
+version: "3.9"
 services:
   plex_server:
     image: linuxserver/plex
@@ -15,7 +15,7 @@ services:
       replicas: 1
       placement:
         constraints:
-          - node.hostname == ${NODE_NAME}
+          - node.labels.Plex == true
     volumes:
       - /docker/plex/config:/config
       - /docker/plex/tv:/mnt/tv
