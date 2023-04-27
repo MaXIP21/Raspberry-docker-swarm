@@ -33,7 +33,7 @@ services:
       replicas: 1
       placement:
         constraints:
-          - node.hostname == ${NODESELECTOR}
+          - node.labels.Vault == true
       labels:
         - traefik.enable=true
         - traefik.docker.network=traefik-public
