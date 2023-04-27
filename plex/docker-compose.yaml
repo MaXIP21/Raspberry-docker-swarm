@@ -4,6 +4,8 @@ services:
   plex_server:
     image: linuxserver/plex
     restart: always
+    networks:
+      - traefik-public
     ports:
       - 32400:32400
     environment:
@@ -21,3 +23,7 @@ services:
       - /docker/plex/tv:/mnt/tv
       - /docker/plex/comedy:/mnt/comedy
       - /docker/plex/movies:/mnt/movies
+
+networks:
+  traefik-public:
+    external: true
