@@ -26,6 +26,9 @@ services:
     volumes:
       - ${download_dir}:/downloads
       - ${config_dir}:/config
+    depends_on:
+      traefik:
+        condition: service_started
 
 volumes:
   transmission-config:
