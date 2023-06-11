@@ -2,7 +2,7 @@ version: "3.1"
 
 services:
   transmission:
-    image: lscr.io/linuxserver/transmission:latest
+    image: lscr.io/linuxserver/transmission:4.0.3
     network_mode: "host" 
     environment:
       - PUID=1000
