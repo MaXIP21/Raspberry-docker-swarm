@@ -19,10 +19,10 @@ services:
         constraints:
           - node.labels.Plex == true
     volumes:
-      - ${CONFIG_DIR}/config:/config
-      - ${TV_DIR}/tv:/mnt/tv
-      - ${COMEDY_DIR}/comedy:/mnt/comedy
-      - ${MOVIES_DIR}/movies:/mnt/movies
+      - ${CONFIG_DIR}:/config
+      - ${TV_DIR}:/mnt/tv
+      - ${COMEDY_DIR}:/mnt/comedy
+      - ${MOVIES_DIR}:/mnt/movies
 
 #networks:
 #  traefik-public:
