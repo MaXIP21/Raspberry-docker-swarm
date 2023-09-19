@@ -19,10 +19,10 @@ services:
         constraints:
           - node.labels.Plex == true
     volumes:
-      - /docker/plex/config:/config
-      - /docker/plex/tv:/mnt/tv
-      - /docker/plex/comedy:/mnt/comedy
-      - /docker/plex/movies:/mnt/movies
+      - ${CONFIG_DIR}/config:/config
+      - ${TV_DIR}/tv:/mnt/tv
+      - ${COMEDY_DIR}/comedy:/mnt/comedy
+      - ${MOVIES_DIR}/movies:/mnt/movies
 
 networks:
   traefik-public:
