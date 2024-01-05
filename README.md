@@ -1,17 +1,10 @@
 # Raspberry Pi Swarm based docker-compose files for different services
 
-I found a lot of bad examples how you can't run dockers on your Raspberry Pi expecially in a swarm. 
-By reason I created my own repository and used my two Raspberry PI (1pc PI3 and 1pc PI4 4GB) to achieve a small but fun home infrastructure and they are running in a docker swarm. 
+I found many BAD examples of running Docker on a Raspberry Pi, especially in a swarm. Therefore, I created my repository, utilizing two Raspberry Pis (one Pi3 and one Pi4 4GB), to establish a small, yet enjoyable home infrastructure running in a Docker swarm.
 
-My goal was to set up a swarm Deploy Traefik and Portainer then the create monitoring for my home servers as well as my desktops.
-I added Consul as service discovery and a monitoring stack which consists of Prometheus, Grafana, Mariadb, Karma as a fancy monitoring and alerting system. 
-I redirected my alerts to my slack channel just for fun. 
+My objective was to deploy Traefik and Portainer in the swarm, followed by creating monitoring for both my home servers and desktops. I incorporated Consul for service discovery and implemented a monitoring stack featuring Prometheus, Grafana, Mariadb, and Karma for an aesthetically pleasing monitoring and alerting system. For a touch of fun, I redirected my alerts to my Slack channel.
 
-You can use my compose files to build your own home servers using these expensive (it's 2023) Raspberry Pis.
-
-I try to create more description here from the process later on. 
-
-Enjoy !!
+Feel free to use my compose files to build your own home servers with these cost-effective Raspberry Pis in 2023. I'll provide more detailed descriptions of the process later on. Enjoy!
 
 ## Create Docker networks for the stacks
 ```
